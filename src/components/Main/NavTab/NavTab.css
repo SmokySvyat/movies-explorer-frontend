@@ -22,10 +22,17 @@
     margin: 0 20px;
 
     color: #fff;
-    font-family: Inter;
     font-size: 13px;
     font-style: normal;
     font-weight: 500;
     line-height: 16px;
     text-decoration-line: underline;
+
+    cursor: pointer;
+    transition: all ease 0.3s;
+}
+
+.navtab__list-link:hover {
+    opacity: 0.7;
+    transition: all ease 0.3s;
 }

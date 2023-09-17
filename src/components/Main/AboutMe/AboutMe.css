@@ -1,0 +1,73 @@
+.about-me {
+    width: 1280px;
+    height: 1079px;
+    padding: 110px 70px;
+    box-sizing: border-box;
+    font-style: normal;
+    
+}
+
+.about-me__heading {
+    font-size: 22px;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.88px;
+
+    height: 50px;
+    margin: 0;
+    border-bottom: 1px solid black;
+}
+
+.about-me__article {
+    display: grid;
+    grid-template-areas:
+        "subheading img"
+        "span img"
+        "text img"
+        "link img";
+        grid-template-columns: 600px 1fr;
+}
+
+.article__subheading {
+    grid-area: subheading;
+    margin: 66px 0 18px 0;
+    font-size: 50px;
+    font-weight: 400;
+    line-height: 58px;
+    letter-spacing: -2px;
+}
+
+.about-me__span {
+    grid-area: span;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 20px;
+}
+
+.about-me__text {
+    grid-area: text;
+    margin: 26px 0 99px 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 22px;
+}
+
+.about-me__link {
+    grid-area: link;
+    color: #000;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: normal;
+    text-decoration: none;
+}
+
+.about-me__img {
+    grid-area: img;
+    align-self: self-end;
+    justify-self: self-end;
+    width: 270px;
+    height: 327px;
+    border-radius: 10px;
+    background: url(../../../images/pic-vitaly.png), lightgray 50% / cover no-repeat;
+    
+}

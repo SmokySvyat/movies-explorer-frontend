@@ -1,0 +1,46 @@
+.footer {
+    box-sizing: border-box;
+    max-width: 1280px;
+    width: 100%;
+    height: 172px;
+
+    display: grid;
+    grid-template-areas:
+        "heading heading"
+        "copyrights links";
+
+    padding: 61px 70px 20px 70px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    font-size: 13px;
+}
+
+.footer__heading {
+    grid-area: heading;
+    margin: 0;
+
+    color: #A0A0A0;
+    text-align: center;  
+    line-height: 55px;
+    font-size: inherit;
+    font-style: inherit;
+    font-weight: inherit;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.copyrights {
+    grid-area: copyrights;
+    margin: 20px 0 0 0;
+}
+
+.footer__nav {
+    grid-area: links;
+    text-align: right;
+    align-self: self-end;
+}
+
+.link {
+    color: #000;
+    text-decoration: none;
+}
