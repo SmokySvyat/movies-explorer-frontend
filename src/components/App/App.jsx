@@ -58,7 +58,10 @@ function App() {
               element={
                 <>
                   <Header />
-                  <Profile />
+                  <Profile
+                      name={"Вася"}
+                      email={'vasya@mail.com'}
+                  />
                 </>
               }
           />
@@ -66,8 +69,10 @@ function App() {
             path="/sign-up"
             element={
               <>
-                <Header />
-                <Register />
+                <Register
+                  title="Добро пожаловать!"
+                  btnValue="Зарегистрироваться"
+                />
               </>
             }
           />
@@ -75,7 +80,6 @@ function App() {
             path="/sign-in"
             element={
               <>
-                <Header />
                 <Login />
               </>
             }

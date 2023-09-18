@@ -2,13 +2,13 @@ import './SearchForm.css';
 
 function SearchForm () {
     return (
-        <section className='search-form'>
-            <form className='form'>
-                <div className='search'>
-                    <span className='form__ico'></span>
-                    <input className='form__input' type='serch' placeholder='Фильм'></input>
+        <div className='search'>
+            <form className='search-form'>
+                <div className='search-items'>
+                    <span className='search__ico'></span>
+                    <input className='search__input' type='serch' placeholder='Фильм'></input>
                 </div>
-                <div className='controls'>
+                <div className='control-items'>
                     <input className='form__submit-btn' type='submit' value='Найти'></input>
                     <div className='line'></div>
                     <label className='switch'>
@@ -19,7 +19,7 @@ function SearchForm () {
                 </div>
             </form>
             <div className='brake'></div>
-        </section>
+        </div>
     )
 }
 

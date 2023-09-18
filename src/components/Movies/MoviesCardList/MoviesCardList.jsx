@@ -17,6 +17,9 @@ function MoviesCardList () {
                     )
                 })}
             </ul>
+            <div className='more'>
+                    <button className='more__btn' type='button'>Ещё</button>
+            </div>
         </section>
     )
 }
