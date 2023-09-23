@@ -1,48 +1,57 @@
 import './Register.css'
+import { useNavigate } from "react-router-dom"
 import logo from "../../images/logo.svg"
 
 function Register (props) {
+    const navigate = useNavigate();
+
+    const goToLogin = () => {
+        navigate("/sign-in");
+    };
+    const goToMain = () => {
+        navigate("/")
+    };
     return (
         <main className='register section'>
-            <a href='/' className='register__logo'><img src={logo} alt='логотип проект'/></a>
-            <h1 className='register__heading'>{props.title}</h1>
-
             <form name='registration' className='form'>
-            <label class="form__label" for="name">Имя</label>
-            <input
-                class="form__input"
-                id="name"
-                name='name'
-                type="text"
-                minlength="2"
-                maxlength="30"
-                pattern="^[a-zA-ZА-Яа-яЁёs]+$"
-                placeholder='Имя'
-                required></input>
-            <label class="form__label" for="email">E-mail</label>
-            <input
-                class="form__input"
-                id="email"
-                name='email'
-                type="email"
-                placeholder='E-mail'
-                required></input>
-            <label class="form__label" for="password">Пароль</label>
-            <input
-                class="form__input"
-                id="password"
-                name="password"
-                type="password"
-                pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$"
-                placeholder='Пароль'
-                required></input>
-                <span className='form__error'>Что-то пошло не так...</span>
-                <button className="form__btn" type="submit">
-                    {props.btnValue}
-                </button>
-                <span className="form__span">Уже зарегистрированны? 
-                    <a className="link"> Войти</a>
-                </span>
+                <a className='logo' onClick={goToMain}><img src={logo} alt='логотип проект'/></a>
+                <h1 className='form__heading'>{props.title}</h1>
+
+                <label className="form__label">Имя</label>
+                <input
+                    className="form__input"
+                    id="name"
+                    name='name'
+                    type="text"
+                    minLength="2"
+                    maxLength="30"
+                    pattern="^[a-zA-ZА-Яа-яЁёs]+$"
+                    placeholder='Имя'
+                    required></input>
+                <label className="form__label">E-mail</label>
+                <input
+                    className="form__input"
+                    id="email"
+                    name='email'
+                    type="email"
+                    placeholder='E-mail'
+                    required></input>
+                <label className="form__label">Пароль</label>
+                <input
+                    className="form__input"
+                    id="password"
+                    name="password"
+                    type="password"
+                    pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$"
+                    placeholder='Пароль'
+                    required></input>
+                    <span className='form__error d-none'>Что-то пошло не так...</span>
+                    <button className="form__btn" type="submit">
+                        {props.btnValue}
+                    </button>
+                    <span className="form__span">Уже зарегистрированны? 
+                        <a className="link" onClick={goToLogin}> Войти</a>
+                    </span>
             </form>
         </main>
     )

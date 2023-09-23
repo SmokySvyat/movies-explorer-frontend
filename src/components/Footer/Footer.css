@@ -39,3 +39,17 @@
     text-align: right;
     align-self: self-end;
 }
+
+.footer__link {
+    font-size: 13px;
+}
+
+@media screen and (max-width: 840px) {
+    .footer {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+    .footer__link {
+        font-size: 13px;
+    }
+}

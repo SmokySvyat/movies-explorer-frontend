@@ -169,4 +169,6 @@ const card = [
     },
 ]
 
-export default card;
+module.exports = {
+    card,
+}

@@ -27,7 +27,9 @@ function App() {
               path="/"
               element={
                 <>
-                  <Header />
+                  <Header
+                    loggedIn = {loggedIn}
+                  />
                   <Main />
                   <Footer />
                 </>
@@ -37,7 +39,9 @@ function App() {
               path="/movies"
               element={
                 <>
-                  <Header />
+                  <Header
+                    loggedIn = {loggedIn}
+                  />
                   <Movies />
                   <Footer />
                 </>
@@ -47,7 +51,9 @@ function App() {
               path="/saved-movies"
               element={
                 <>
-                  <Header />
+                  <Header
+                    loggedIn = {loggedIn}
+                  />
                   <SavedMovies />
                   <Footer />
                 </>
@@ -57,7 +63,9 @@ function App() {
               path="/profile"
               element={
                 <>
-                  <Header />
+                  <Header
+                    loggedIn = {loggedIn}
+                  />
                   <Profile
                       name={"Вася"}
                       email={'vasya@mail.com'}
@@ -80,7 +88,10 @@ function App() {
             path="/sign-in"
             element={
               <>
-                <Login />
+                <Login
+                  title="Рады видеть!"
+                  btnValue="Войти"
+                />
               </>
             }
           />

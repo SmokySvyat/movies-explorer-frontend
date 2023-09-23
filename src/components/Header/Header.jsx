@@ -1,21 +1,98 @@
 import './Header.css'
+import { useNavigate } from "react-router-dom"
+import { useLocation, Link } from "react-router-dom"
+import { useEffect, useState } from 'react'
+import Overlay from '../Overlay/Overlay'
 import logo from '../../images/logo.svg'
 
-function Header () {
+function Header (props) {
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 840);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const isLogin = props.loggedIn;
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 840);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  const goToLogin = () => {
+    navigate('/sign-in');
+  };
+  const goToRegister = () => {
+    navigate('/sign-up')
+  };
+
+
+  const navMenu = () => {
+    if (isLogin && isMobile) {
+      return (
+        <button className='burger'></button>
+      )
+    } else if (isLogin) {
+      // console.log(`Если true ${isLogin}`)
+      // console.log(location)
+      return (
+        <ul className='nav-list'>
+          <li className='nav-list__item'>
+            <Link
+              className={location.pathname === '/movies' ? 'nav-list__btn_active link' : 'link'}
+              to={'/movies'}>
+              Фильмы
+            </Link></li>
+
+          <li className='nav-list__item'>
+            <Link
+              className={location.pathname === '/saved-movies' ? 'nav-list__btn_active link' : 'link'}
+              to={'/saved-movies'}>
+              Сохранённые фильмы
+            </Link></li>
+            
+          <li className='nav-list__item'>
+            <Link
+              className={location.pathname === '/profile' ? 'nav-list__btn nav-list__btn_active link' : 'nav-list__btn link'}
+              to={'/profile'}>
+              Аккаунт
+              <div className={
+                location.pathname === '/' ? 'btn-img btn-img_landing' : 'btn-img'
+                }></div>
+            </Link></li>
+        </ul>
+      )
+    } else {
+      // console.log(`Если false ${isLogin}`)
+      // console.log(location)
+      return (
+        <ul className='nav-list'>
+          <li className='nav-list__item'>
+            <button className='nav-list__btn nav-list__btn_registration' onClick={goToRegister}>
+              Регистрация
+            </button></li>
+          <li className='nav-list__item'>
+            <button className='nav-list__btn nav-list__btn_signin' onClick={goToLogin}>
+              Вход
+            </button></li>
+        </ul>
+      )
+    }
+  }
     return (
-        <header className='header'>
-          <a href='/' className='header__logo'><img src={logo} alt='логотип проект' /></a>
+        <header className={location.pathname === '/' ? 'header header_landing' : 'header'}>
+          <Link
+            className='header__logo logo'
+            to={'/'}>
+            <img src={logo} alt='логотип проект'/>
+          </Link>
           <nav className='header__nav'>
-            <ul className='nav-list'>
-                <li className='nav-list__item'><a href='/movies' className='nav-list__btn link'>Фильмы</a></li>
-                <li className='nav-list__item'><a href='/saved-movies' className='nav-list__btn nav-list__btn_active link'>Сохранённые фильмы</a></li>
-                <li className='nav-list__item'><a href='/profile' className='nav-list__btn link'>Аккаунт<div className='btn-img'></div></a></li>
-            </ul>
-            {/* <ul className='nav-list'>
-                <li className='nav-list__item'><button className='nav-list__btn nav-list__btn_registration'>Регистрация</button></li>
-                <li className='nav-list__item'><button className='nav-list__btn nav-list__btn_signin'>Вход</button></li>
-            </ul> */}
+          {navMenu()}
           </nav>
+          <Overlay />
         </header>
     )
 }

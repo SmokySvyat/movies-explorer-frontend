@@ -2,23 +2,23 @@ import './AboutProject.css'
 
 function AboutProject() {
     return (
-        <section className='about-project'>
-            <h2 className='about-project__heading'>О проекте</h2>
+        <section id='about-project' className='about-project'>
+            <h2 className='about-project__heading section__heading'>О проекте</h2>
             <article className='article_about-project'>
-                <h3 className='article__heading_about-project'>
-                    Дипломный проект включал 5 этапов
+                <h3 className='article__subheading'>
+                    На выполнение диплома ушло 5 недель
                 </h3>
-                <p className='article__text_about-project'>
+                <p className='article__text article__text_about-project'>
                     Составление плана, работу над бэкендом, вёрстку,
                     добавление функциональности и финальные доработки.
                 </p>
             </article>
 
             <article className='article_about-project'>
-                <h3 className='article__heading_about-project'>
-                    На выполнение диплома ушло 5 недель
+                <h3 className='article__subheading'>
+                    Дипломный проект включал 5 этапов
                 </h3>
-                <p className='article__text_about-project'>
+                <p className='article__text article__text_about-project'>
                     У каждого этапа был мягкий и жёсткий дедлайн,
                     которые нужно было соблюдать, чтобы успешно защититься.
                 </p>

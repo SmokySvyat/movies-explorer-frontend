@@ -1,7 +1,7 @@
 import './MoviesCardList.css'
 import Preloader from '../Preloader/Preloader'
 import MoviesCard from '../MoviesCard/MoviesCard';
-import card from '../../../utils/constants'
+import {card} from '../../../utils/constants'
 
 function MoviesCardList () {
     return (

@@ -20,8 +20,24 @@
 .header__logo{
     grid-area: logo;
     margin: auto 0;
-    width: 38px;
-    height: 38px;
+}
+
+.burger {
+    width: 44px;
+    height: 44px;
+    
+    border: none;
+    background: transparent;
+    padding: 0;
+    background-image: url(../../images/burger.svg);
+
+    cursor: pointer;
+    transition: all ease 0.3s;
+}
+
+.burger:hover {
+    opacity: 0.8;
+    transition: all ease 0.3s;
 }
 
 .header__nav{
@@ -40,29 +56,20 @@
 .nav-list__item{
     display: inline-block;
     margin: 0 0 0 20px;
+    font-size: 14px;
+    line-height: 18px;
 
-    cursor: pointer;
-    transition: all ease 0.3s;
-}
-
-.nav-list__item:hover {
-    opacity: 0.7;
     transition: all ease 0.3s;
 }
 
 .nav-list__item:nth-child(3){
     margin-left: 50px;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 16px;
 }
 
 .nav-list__btn{
     display: flex;
     flex-direction: row;
     align-items: center;
-    cursor: pointer;
 
     background-color: transparent;
     border: none;
@@ -71,10 +78,17 @@
 
     font-size: 14px;
     line-height: 18px;
+    cursor: pointer;
+    transition: all ease 0.3s;
 }
 
 .nav-list__btn_active {
     font-weight: 500;
+}
+
+.nav-list__btn:hover {
+    opacity: 0.8;
+    transition: all ease 0.3s;
 }
 
 .btn-img{
@@ -93,6 +107,8 @@
 .btn-img_landing {
     background: #000;
     background-image: url(../../images/ico__ak_landing.svg);
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .nav-list__btn_registration {
@@ -113,4 +129,14 @@
     
     border-radius: 3px;
     background: #000;
+}
+
+@media screen and (max-width: 840px) {
+    .header {
+        max-width: 768px;
+        padding: 15px 30px;
+    }
+    .nav-list__item {
+        font-size: 12px;
+    }
 }

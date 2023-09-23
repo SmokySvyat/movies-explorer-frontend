@@ -2,11 +2,11 @@ import './Techs.css';
 
 function Techs() {
     return (
-        <section className='techs'>
-            <h2 className='techs__heading'>Технологии</h2>
+        <section id='techs' className='techs'>
+            <h2 className='section__heading'>Технологии</h2>
             <article className='techs__article'>
-                <h3 className='article__heading_techs'>7 технологий</h3>
-                <p className='article__text_techs'>
+                <h3 className='article__heading article__heading_techs'>7 технологий</h3>
+                <p className='article__text article__text_techs'>
                     На курсе веб-разработки
                     мы освоили технологии, которые применили в дипломном проекте.
                 </p>
