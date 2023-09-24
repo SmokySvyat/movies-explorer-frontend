@@ -1,7 +1,31 @@
+.login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .login__span-error {
     top: 310px;
 }
 
 .login__btn {
     margin-top: 169px;
+}
+
+@media screen and (max-width: 840px) {
+    .login {
+        padding-top: 232px;
+    }
+}
+
+@media screen and (max-width: 732px) {
+    .login {
+        padding-top: 56px;
+    }
+    .login__btn {
+        margin-top: 257px;
+    }
+    .login__span-error {
+        top: 361px;
+    }
 }

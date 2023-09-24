@@ -84,7 +84,7 @@ function Header (props) {
             </button></li>
           <li className='nav-list__item'>
             <button className='nav-list__btn nav-list__btn_signin' onClick={goToLogin}>
-              Вход
+              Войти
             </button></li>
         </ul>
       )

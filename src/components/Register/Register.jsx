@@ -1,20 +1,12 @@
 import './Register.css'
-import { useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 import logo from "../../images/logo.svg"
 
 function Register (props) {
-    const navigate = useNavigate();
-
-    const goToLogin = () => {
-        navigate("/sign-in");
-    };
-    const goToMain = () => {
-        navigate("/")
-    };
     return (
         <main className='register section'>
             <form name='registration' className='form'>
-                <a className='logo' onClick={goToMain}><img src={logo} alt='логотип проект'/></a>
+                <Link className='logo' to={'/'}><img src={logo} alt='логотип проект'/></Link>
                 <h1 className='form__heading'>{props.title}</h1>
 
                 <label className="form__label">Имя</label>
@@ -45,12 +37,12 @@ function Register (props) {
                     pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$"
                     placeholder='Пароль'
                     required></input>
-                    <span className='form__error d-none'>Что-то пошло не так...</span>
+                    <span className='form__error'>Что-то пошло не так...</span>
                     <button className="form__btn" type="submit">
                         {props.btnValue}
                     </button>
-                    <span className="form__span">Уже зарегистрированны? 
-                        <a className="link" onClick={goToLogin}> Войти</a>
+                    <span className="form__span">Уже зарегистрированы? 
+                        <Link className="link" to={'/sign-in'}> Войти</Link>
                     </span>
             </form>
         </main>

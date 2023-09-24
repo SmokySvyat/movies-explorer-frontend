@@ -43,3 +43,10 @@
         max-width: 768px;
     }
 }
+
+@media screen and (max-width: 732px) {
+    .navtab__list-link {
+        font-size: 11px;
+        margin: 12px;
+    }
+}

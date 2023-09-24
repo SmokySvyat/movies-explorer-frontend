@@ -70,3 +70,22 @@
         letter-spacing: -1.12px;
     }
 }
+
+@media screen and (max-width: 732px) {
+    .portfolio__heading {
+        font-size: 14px;
+        line-height: 20px;
+        margin: 70px 0 20px 0;
+    }
+    .text {
+        font-size: 18px;
+        line-height: 28px;
+        letter-spacing: -0.72px;
+    }
+    .span {
+        margin-bottom: 6px;
+        font-size: 18px;
+        line-height: 28px;
+        letter-spacing: -0.72px;
+    }
+}

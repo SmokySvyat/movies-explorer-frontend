@@ -2,13 +2,13 @@ import SearchForm from '../Movies/SearchForm/SearchForm'
 import './SavedMovies.css'
 function SavedMovies () {
     return (
-        <main className='saved-movies section'>
+        <main className='movies section'>
             <SearchForm />
-            <ul className='saved-movies__list section'>
-
+            <ul className='cards-list'>
+                
             </ul>
             <div className='more'>
-                    <button className='more__btn d-none' type='button'>Ещё</button>
+                    <button className='more__btn' type='button'>Ещё</button>
             </div>
         </main>
     )

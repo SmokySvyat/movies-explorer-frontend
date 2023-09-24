@@ -1,8 +1,8 @@
 import './App.css';
-import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import { useState } from 'react';
 
-import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+// import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import NotFound from '../NotFound/NotFound';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
@@ -14,8 +14,8 @@ import Register from '../Register/Register';
 import Login from '../Login/Login';
 
 function App() {
-  const [currentUser, setCurrentUser] = useState([]);
-  const [loggedIn, setLoggedIn] = useState(true);           //LOGIN
+  // const [currentUser, setCurrentUser] = useState([]);
+  const [loggedIn, setLoggedIn] = useState(false);           //LOGIN
 
   return (
     // <CurrentUserContext.Provider value={currentUser}>

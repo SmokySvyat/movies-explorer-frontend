@@ -32,3 +32,17 @@
         margin-top: 326px;
     }
 }
+
+@media screen and (max-width: 732px) {
+    .promo {
+        height: 570px;
+        background-position-y: 142px;
+        background-size: 248px;
+    }
+    .promo__heading {
+        margin-top: 207px;
+        font-size: 31px;
+        line-height: 39px;
+        letter-spacing: -1.24px;
+    }
+}

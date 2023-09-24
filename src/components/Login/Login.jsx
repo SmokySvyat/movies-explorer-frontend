@@ -1,21 +1,12 @@
 import './Login.css'
-import { useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 import logo from "../../images/logo.svg"
 
 function Login (props) {
-    const navigate = useNavigate();
-
-    const goToRegister = () => {
-        navigate("/sign-up");
-    };
-    const goToMain = () => {
-        navigate("/")
-    };
-
     return (
-        <main className='section'>
-            <form name='registration' className='form'>
-                <a className='logo' onClick={goToMain}><img src={logo} alt='логотип проект'/></a>
+        <main className='section login'>
+            <form name='login' className='form'>
+                <Link className='logo' to={'/'}><img src={logo} alt='логотип проект'/></Link>
                 <h1 className='form__heading'>{props.title}</h1>
 
                 <label className="form__label">E-mail</label>
@@ -36,12 +27,12 @@ function Login (props) {
                     placeholder='Пароль'
                     required></input>
 
-                <span className='form__error login__span-error d-none'>Что-то пошло не так...</span>
+                <span className='form__error login__span-error'>Что-то пошло не так...</span>
                     <button className="form__btn login__btn" type="submit">
                         {props.btnValue}
                     </button>
                     <span className="form__span">Ещё не зарегистрированы? 
-                        <a className="link" onClick={goToRegister}> Регистрация</a>
+                        <Link className="link" to={'/sign-up'}> Регистрация</Link>
                 </span>
             </form>
         </main>

@@ -30,6 +30,7 @@
     background: transparent;
     padding: 0;
     background-image: url(../../images/burger.svg);
+    background-position: center;
 
     cursor: pointer;
     transition: all ease 0.3s;
@@ -138,5 +139,30 @@
     }
     .nav-list__item {
         font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 732px) {
+    .header {
+        padding: 18px 14px;
+    }
+    .burger {
+        width: 23px;
+        height: 30px;
+        margin-top: 2px;
+        margin-right: 8px;
+    }
+    .nav-list__item {
+        margin: 5px 0;
+    }
+    .nav-list__btn_registration {
+        font-size: 10px;
+        margin-right: 14px;
+    }
+    .nav-list__btn_signin {
+        font-size: 10px;
+        width: 54px;
+        height: 26px;
+        
     }
 }
