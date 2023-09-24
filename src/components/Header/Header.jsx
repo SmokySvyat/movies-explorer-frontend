@@ -7,9 +7,17 @@ import logo from '../../images/logo.svg'
 
 function Header (props) {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 840);
+  const [showOverlay, setShowOverlay] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const isLogin = props.loggedIn;
+
+  const handleOpenOverlay = () => {
+    setShowOverlay(true)
+  }
+  const handleCloseOverlay = () => {
+    setShowOverlay(false);
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -33,7 +41,7 @@ function Header (props) {
   const navMenu = () => {
     if (isLogin && isMobile) {
       return (
-        <button className='burger'></button>
+        <button className='burger' onClick={handleOpenOverlay}></button>
       )
     } else if (isLogin) {
       // console.log(`Если true ${isLogin}`)
@@ -92,7 +100,7 @@ function Header (props) {
           <nav className='header__nav'>
           {navMenu()}
           </nav>
-          <Overlay />
+          <Overlay isOpen={showOverlay} onClose={handleCloseOverlay}/>
         </header>
     )
 }

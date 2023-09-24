@@ -1,38 +1,43 @@
 import './Overlay.css'
 import { useLocation, Link } from "react-router-dom"
 
-function Overlay () {
+function Overlay (props) {
     const location = useLocation();
+    const className = `overlay${props.isOpen ? '' : ' d-none'}`
     return (
-        <div className='overlay'>
+        <div className={className}>
             <nav className='overlay__nav'>
-                <button className='cross'></button>
+                <button className='cross' onClick={props.onClose}></button>
                 <ul className='nav-list nav-list_overlay'>
                     <li className='nav-list__item_overlay'>
                         <Link
                           className={location.pathname === '/' ? 'overlay__link_active overlay__link' : 'overlay__link'}
-                          to={'/'}>
+                          to={'/'}
+                          onClick={props.onClose}>
                           Главная
                         </Link></li>
 
                     <li className='nav-list__item_overlay'>
                         <Link
                           className={location.pathname === '/movies' ? 'overlay__link_active overlay__link' : 'overlay__link'}
-                          to={'/movies'}>
+                          to={'/movies'}
+                          onClick={props.onClose}>
                           Фильмы
                         </Link></li>
 
                     <li className='nav-list__item_overlay'>
                         <Link
                           className={location.pathname === '/saved-movies' ? 'overlay__link_active overlay__link' : 'overlay__link'}
-                          to={'/saved-movies'}>
+                          to={'/saved-movies'}
+                          onClick={props.onClose}>
                           Сохранённые фильмы
                         </Link></li>
 
                     <li className={location.pathname === '/profile' ? 'overlay__btn overlay__link_active' : 'nav-list__item'}>
                         <Link
                           className='overlay__btn'
-                          to={'/profile'}>
+                          to={'/profile'}
+                          onClick={props.onClose}>
                           Аккаунт
                           <div className={
                             location.pathname === '/' ? 'btn-img' : 'btn-img'
