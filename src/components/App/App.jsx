@@ -15,7 +15,7 @@ import Login from '../Login/Login';
 
 function App() {
   // const [currentUser, setCurrentUser] = useState([]);
-  const [loggedIn, setLoggedIn] = useState(false);           //LOGIN
+  const [loggedIn, setLoggedIn] = useState(true);           //LOGIN
 
   return (
     // <CurrentUserContext.Provider value={currentUser}>

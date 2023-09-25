@@ -82,9 +82,9 @@
 
 @media screen and (max-width: 732px) {
     .about-me {
-        max-width: 320px;
         height: 1198px;
         padding: 70px 14px;
+        
     }
     .about-me__article {
         grid-template-rows: repeat(5, min-content);
@@ -98,6 +98,7 @@
     }
     .about-me__img {
         grid-area: img;
+        justify-self: center;
         margin-top: 60px;
         width: 292px;
         height: 352px;
@@ -107,6 +108,7 @@
     }
     .about-me__heading {
         grid-area: subheading;
+        justify-self: center;
         width: 290px;
         margin: 40px 0 20px 0;
         font-size: 30px;
@@ -114,12 +116,14 @@
     }
     .about-me__span {
         grid-area: span;
+        justify-self: center;
         width: 290px;
         font-size: 11px;
         line-height: 16px;
     }
     .about-me__text {
         grid-area: text;
+        justify-self: center;
         width: 290px;
         margin: 20px 0 40px 0;
         font-size: 11px;
@@ -127,6 +131,7 @@
     }
     .about-me__link {
         grid-area: link;
+        justify-self: center;
         width: 290px;
     }
     /* * {

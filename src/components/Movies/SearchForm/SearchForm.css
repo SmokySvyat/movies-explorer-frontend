@@ -160,18 +160,22 @@
 @media screen and (max-width: 732px) {
     .search {
         display: block;
-        width: 320px;
         height: 272px;
-        padding: 80px 10px 55px 10px;
+        padding: 80px 0 55px 0;
     }
     .search-form {
         display: grid;
         grid-template-areas:
-            "input btn"
-            "controls controls";
+            "input"
+            "controls";
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr;
         margin: 0;
-        width: 300px;
         height: 72px;
+    }
+    .search-items {
+        grid-area: input;
+        justify-content: space-between;
     }
     .search__ico {
         display: none;

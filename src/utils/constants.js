@@ -1,8 +1,8 @@
-const card = [
+const cards = [
     {
         country: 'russia',
         director: 'yasha',
-        duration: 120,
+        duration: '1ч 20м',
         year: 2023,
         description: 'davnim davno, v dalokoy dalokoy galaktike',
         image: 'https://allbestmovies.ru/uploads/posts/2015-11/1448338367_photo-40191159_389471883.jpg',
@@ -16,7 +16,7 @@ const card = [
     {
         country: 'russia',
         director: 'yasha',
-        duration: 180,
+        duration: '1ч 20м',
         year: 2023,
         description: 'davnim davno, v dalokoy dalokoy galaktike',
         image: 'https://allbestmovies.ru/uploads/posts/2015-11/1448338367_photo-40191159_389471883.jpg',
@@ -30,7 +30,7 @@ const card = [
     {
         country: 'russia',
         director: 'yasha',
-        duration: 20,
+        duration: '1ч 20м',
         year: 2020,
         description: 'davnim davno, v dalokoy dalokoy galaktike',
         image: 'https://allbestmovies.ru/uploads/posts/2015-11/1448338367_photo-40191159_389471883.jpg',
@@ -44,7 +44,7 @@ const card = [
     {
         country: 'russia',
         director: 'yasha',
-        duration: 120,
+        duration: '1ч 20м',
         year: 2023,
         description: 'davnim davno, v dalokoy dalokoy galaktike',
         image: 'https://allbestmovies.ru/uploads/posts/2015-11/1448338367_photo-40191159_389471883.jpg',
@@ -58,7 +58,7 @@ const card = [
     {
         country: 'russia',
         director: 'yasha',
-        duration: 420,
+        duration: '1ч 20м',
         year: 2123,
         description: 'davnim davno, v dalokoy dalokoy galaktike',
         image: 'https://allbestmovies.ru/uploads/posts/2015-11/1448338367_photo-40191159_389471883.jpg',
@@ -66,13 +66,13 @@ const card = [
         thumbnail: 'https://www.dejurka.ru/wp-content/uploads/2012/05/lord-of-rings.jpg',
         owner: '',
         movieId: 75463219,
-        nameRU: 'Поехали',
+        nameRU: 'Поехали5',
         nameEN: 'Priehali'
     },
     {
         country: 'russia',
         director: 'yasha',
-        duration: 120,
+        duration: '1ч 20м',
         year: 2023,
         description: 'davnim davno, v dalokoy dalokoy galaktike',
         image: 'https://allbestmovies.ru/uploads/posts/2015-11/1448338367_photo-40191159_389471883.jpg',
@@ -86,7 +86,7 @@ const card = [
     {
         country: 'russia',
         director: 'yasha',
-        duration: 120,
+        duration: '1ч 20м',
         year: 2023,
         description: 'davnim davno, v dalokoy dalokoy galaktike',
         image: 'https://allbestmovies.ru/uploads/posts/2015-11/1448338367_photo-40191159_389471883.jpg',
@@ -100,7 +100,7 @@ const card = [
     {
         country: 'russia',
         director: 'yasha',
-        duration: 120,
+        duration: '1ч 20м',
         year: 2023,
         description: 'davnim davno, v dalokoy dalokoy galaktike',
         image: 'https://allbestmovies.ru/uploads/posts/2015-11/1448338367_photo-40191159_389471883.jpg',
@@ -108,13 +108,13 @@ const card = [
         thumbnail: 'https://www.dejurka.ru/wp-content/uploads/2012/05/lord-of-rings.jpg',
         owner: '',
         movieId: 65463299,
-        nameRU: 'Поехали',
+        nameRU: 'Поехали8',
         nameEN: 'Priehali',
     },
     {
         country: 'russia',
         director: 'yasha',
-        duration: 120,
+        duration: '1ч 20м',
         year: 2023,
         description: 'davnim davno, v dalokoy dalokoy galaktike',
         image: 'https://allbestmovies.ru/uploads/posts/2015-11/1448338367_photo-40191159_389471883.jpg',
@@ -128,7 +128,7 @@ const card = [
     {
         country: 'russia',
         director: 'yasha',
-        duration: 120,
+        duration: '1ч 20м',
         year: 2023,
         description: 'davnim davno, v dalokoy dalokoy galaktike',
         image: 'https://allbestmovies.ru/uploads/posts/2015-11/1448338367_photo-40191159_389471883.jpg',
@@ -142,7 +142,7 @@ const card = [
     {
         country: 'russia',
         director: 'yasha',
-        duration: 120,
+        duration: '1ч 20м',
         year: 2023,
         description: 'davnim davno, v dalokoy dalokoy galaktike',
         image: 'https://allbestmovies.ru/uploads/posts/2015-11/1448338367_photo-40191159_389471883.jpg',
@@ -156,7 +156,7 @@ const card = [
     {
         country: 'russia',
         director: 'yasha',
-        duration: 120,
+        duration: '1ч 20м',
         year: 2023,
         description: 'davnim davno, v dalokoy dalokoy galaktike',
         image: 'https://allbestmovies.ru/uploads/posts/2015-11/1448338367_photo-40191159_389471883.jpg',
@@ -164,11 +164,25 @@ const card = [
         thumbnail: 'https://www.dejurka.ru/wp-content/uploads/2012/05/lord-of-rings.jpg',
         owner: '',
         movieId: 67893219,
-        nameRU: 'Поехалииии',
+        nameRU: 'Поехалииии12',
+        nameEN: 'Priehali',
+    },
+    {
+        country: 'russia',
+        director: 'yasha',
+        duration: '1ч 20м',
+        year: 2023,
+        description: 'davnim davno, v dalokoy dalokoy galaktike',
+        image: 'https://allbestmovies.ru/uploads/posts/2015-11/1448338367_photo-40191159_389471883.jpg',
+        trailerLink: 'https://www.youtube.com/watch?v=JyUH8Wp40IU',
+        thumbnail: 'https://www.dejurka.ru/wp-content/uploads/2012/05/lord-of-rings.jpg',
+        owner: '',
+        movieId: 6574521912,
+        nameRU: 'Папоехали13',
         nameEN: 'Priehali',
     },
 ]
 
 module.exports = {
-    card,
+    cards,
 }
