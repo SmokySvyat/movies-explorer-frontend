@@ -1,8 +1,8 @@
-import SearchForm from '../Movies/SearchForm/SearchForm'
 import './SavedMovies.css'
+import SearchForm from '../Movies/SearchForm/SearchForm'
 function SavedMovies () {
     return (
-        <main className='movies section'>
+        <main className='movies-section section'>
             <SearchForm />
             <ul className='cards-list'>
                 

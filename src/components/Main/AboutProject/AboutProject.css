@@ -19,14 +19,14 @@
     grid-area: heading;
 }
 
-.article_about-project {
+.about-project__article {
     grid-area: article-stage;
 }
-.article_about-project:nth-child(2n) {
+.about-project__article:nth-child(2n) {
     grid-area: article-weeks;
 }
 
-.article__text_about-project {
+.article_about-project {
     margin: 26px 0 70px 0;
 }
 
@@ -71,7 +71,7 @@
         padding: 90px 50px;
         column-gap: 30px;
     }
-    .article__text_about-project {
+    .article_about-project {
         margin: 22px 0 53px 0;
     }
     .roadmap-span {
@@ -94,7 +94,7 @@
             gap: 0;
             grid-template-rows: repeat(4, min-content);
     }
-    .article__text_about-project {
+    .article_about-project {
         margin: 0;
     }
     .roadmap {

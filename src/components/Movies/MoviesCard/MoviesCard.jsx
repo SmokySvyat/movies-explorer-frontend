@@ -5,12 +5,12 @@ function MoviesCard ({ card }) {
 
     }
     return (
-        <div className='card'>
+        <li className='card'>
             <div className='card__save' onClick={saveMovie}>Сохранить</div>
-            <img className='card__img' src={card.image} alt=''></img>
-            <p className='card__title'>{card.nameRU}</p>
+            <img className='card__img' src={card.image} alt={card.description}></img>
+            <h2 className='card__title'>{card.nameRU}</h2>
             <p className='card__duration'>{card.duration}</p>
-        </div>
+        </li>
     )
 }
 

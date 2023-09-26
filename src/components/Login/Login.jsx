@@ -23,6 +23,8 @@ function Login (props) {
                     id="password"
                     name="password"
                     type="password"
+                    minLength={8}
+                    maxLength={12}
                     pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$"
                     placeholder='Пароль'
                     required></input>
@@ -32,7 +34,7 @@ function Login (props) {
                         {props.btnValue}
                     </button>
                     <span className="form__span">Ещё не зарегистрированы? 
-                        <Link className="link" to={'/sign-up'}> Регистрация</Link>
+                        <Link className="link" to={'/signup'}> Регистрация</Link>
                 </span>
             </form>
         </main>

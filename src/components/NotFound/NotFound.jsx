@@ -10,7 +10,7 @@ function NotFound() {
     <main className="error-page">
         <h1 className='error-page__heading'>404</h1>
         <span className='error-page__span'>Страница не найдена</span>
-        <button className="error-page__btn link" onClick={goBack}>
+        <button className="error-page__btn link" type='button' onClick={goBack}>
           Назад
         </button>
     </main>

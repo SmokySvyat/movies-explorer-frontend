@@ -31,17 +31,17 @@ function Header (props) {
   }, []);
 
   const goToLogin = () => {
-    navigate('/sign-in');
+    navigate('/signin');
   };
   const goToRegister = () => {
-    navigate('/sign-up')
+    navigate('/signup')
   };
 
 
   const navMenu = () => {
     if (isLogin && isMobile) {
       return (
-        <button className='burger' onClick={handleOpenOverlay}></button>
+        <button className='burger' type='button' onClick={handleOpenOverlay}></button>
       )
     } else if (isLogin) {
       // console.log(`Если true ${isLogin}`)
@@ -79,11 +79,11 @@ function Header (props) {
       return (
         <ul className='nav-list'>
           <li className='nav-list__item'>
-            <button className='nav-list__btn nav-list__btn_registration' onClick={goToRegister}>
+            <button className='nav-list__btn nav-list__btn_registration' type='button' onClick={goToRegister}>
               Регистрация
             </button></li>
           <li className='nav-list__item'>
-            <button className='nav-list__btn nav-list__btn_signin' onClick={goToLogin}>
+            <button className='nav-list__btn nav-list__btn_signin' type='button' onClick={goToLogin}>
               Войти
             </button></li>
         </ul>

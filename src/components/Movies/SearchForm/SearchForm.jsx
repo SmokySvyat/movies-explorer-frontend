@@ -6,11 +6,10 @@ function SearchForm () {
             <form className='search-form'>
                 <div className='search-items'>
                     <span className='search__ico'></span>
-                    <input className='search__input' type='serch' placeholder='Фильм'></input>
-                    <input className='form__submit-btn' type='submit' value='Найти'></input>
+                    <input className='search__input' type='search' placeholder='Фильм' required></input>
+                    <input className='search__submit-btn' type='submit' value='Найти'></input>
                 </div>
                 <div className='control-items'>
-                    <div className='line'></div>
                     <label className='switch'>
                         <input className='checkbox' type='checkbox'></input>
                         <span className='slider'></span>
@@ -18,7 +17,6 @@ function SearchForm () {
                     <label className='label'>Короткометражки</label>
                 </div>
             </form>
-            <div className='brake'></div>
         </div>
     )
 }

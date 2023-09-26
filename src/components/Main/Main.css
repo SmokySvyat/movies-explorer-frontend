@@ -1,4 +1,4 @@
-.section__heading {
+.heading {
     font-size: 22px;
     letter-spacing: -0.88px;
     font-weight: 400;
@@ -9,14 +9,14 @@
     border-bottom: 1px solid black;
 }
 
-.article__heading {
+.article-heading {
     font-size: 50px;
     font-weight: 400;
     line-height: 58px;
     letter-spacing: -2px;
 }
 
-.article__subheading {
+.subheading {
     margin: 30px 0 0 0;
 
     font-size: 20px;
@@ -25,7 +25,7 @@
     letter-spacing: -0.8px;
 }
 
-.article__text {
+.article {
     margin: 0;
     font-size: 14px;
     line-height: 20px;
@@ -33,28 +33,28 @@
 }
 
 @media screen and (max-width: 865px) {
-    .article__text{
+    .article{
         font-size: 12px;
         line-height: 18px;
     }
 }
 
 @media screen and (max-width: 732px) {
-    .section__heading {
+    .heading {
         font-size: 18px;
         letter-spacing: -0.72px;
     }
-    .article__subheading {
+    .subheading {
         font-size: 18px;
         letter-spacing: -0.72px;
         margin: 60px 0 16px 0;
     }
-    .article__text {
+    .article {
         font-size: 11px;
         line-height: 16px;
         margin: 0;
     }
-    .article__heading {
+    .article-heading {
         font-size: 30px;
         letter-spacing: -1.2px;
     }

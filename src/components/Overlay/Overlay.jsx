@@ -7,9 +7,9 @@ function Overlay (props) {
     return (
         <div className={className}>
             <nav className='overlay__nav'>
-                <button className='cross' onClick={props.onClose}></button>
+                <button className='cross' type='button' onClick={props.onClose}></button>
                 <ul className='nav-list nav-list_overlay'>
-                    <li className='nav-list__item_overlay'>
+                    <li className='nav-list__item-overlay'>
                         <Link
                           className={location.pathname === '/' ? 'overlay__link_active overlay__link' : 'overlay__link'}
                           to={'/'}
@@ -17,7 +17,7 @@ function Overlay (props) {
                           Главная
                         </Link></li>
 
-                    <li className='nav-list__item_overlay'>
+                    <li className='nav-list__item-overlay'>
                         <Link
                           className={location.pathname === '/movies' ? 'overlay__link_active overlay__link' : 'overlay__link'}
                           to={'/movies'}
@@ -25,7 +25,7 @@ function Overlay (props) {
                           Фильмы
                         </Link></li>
 
-                    <li className='nav-list__item_overlay'>
+                    <li className='nav-list__item-overlay'>
                         <Link
                           className={location.pathname === '/saved-movies' ? 'overlay__link_active overlay__link' : 'overlay__link'}
                           to={'/saved-movies'}

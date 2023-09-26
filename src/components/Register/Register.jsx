@@ -34,6 +34,8 @@ function Register (props) {
                     id="password"
                     name="password"
                     type="password"
+                    minLength={8}
+                    maxLength={12}
                     pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$"
                     placeholder='Пароль'
                     required></input>
@@ -42,7 +44,7 @@ function Register (props) {
                         {props.btnValue}
                     </button>
                     <span className="form__span">Уже зарегистрированы? 
-                        <Link className="link" to={'/sign-in'}> Войти</Link>
+                        <Link className="link" to={'/signin'}> Войти</Link>
                     </span>
             </form>
         </main>
