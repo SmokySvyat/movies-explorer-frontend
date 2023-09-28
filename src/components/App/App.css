@@ -1,7 +1,13 @@
 .logo {
   width: 38px;
   height: 38px;
-  cursor: pointer;    
+  cursor: pointer;  
+  transition: all ease 0.2s;  
+}
+
+.logo:hover {
+  opacity: 0.8;
+  transition: all ease 0.2s;
 }
 
 .section {
@@ -63,6 +69,11 @@
   border-radius: 8px;
   background: #F9F9F9;
   font-size: 13px;
+}
+
+.form__input:focus{
+  outline-style: none;
+  border: 1px solid #000;
 }
 
 .form__error {

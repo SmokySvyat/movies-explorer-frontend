@@ -3,9 +3,8 @@ import React, { useState, useEffect } from "react";
 import SearchForm from '../SearchForm/SearchForm'
 import Preloader from '../Preloader/Preloader'
 import MoviesCard from '../MoviesCard/MoviesCard'
-import {cards} from '../../../utils/constants'
 
-function MoviesCardList () {
+function MoviesCardList ({cards}) {
     const resolution = window.innerWidth;
 
     const [visibleCards, setVisibleCards] = useState(getVisibleItems());

@@ -183,6 +183,9 @@ const cards = [
     },
 ]
 
+const savedCards = []
+
 module.exports = {
+    savedCards,
     cards,
 }

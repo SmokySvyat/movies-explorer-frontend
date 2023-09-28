@@ -4,7 +4,7 @@
     font-weight: 400;
     line-height: normal;
 
-    height: 50px;
+    padding-bottom: 25px;
     margin: 0;
     border-bottom: 1px solid black;
 }
@@ -43,6 +43,7 @@
     .heading {
         font-size: 18px;
         letter-spacing: -0.72px;
+        padding-bottom: 28px;
     }
     .subheading {
         font-size: 18px;

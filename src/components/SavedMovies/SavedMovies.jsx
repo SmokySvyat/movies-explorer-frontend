@@ -1,15 +1,13 @@
 import './SavedMovies.css'
-import SearchForm from '../Movies/SearchForm/SearchForm'
+import MoviesCardList from '../Movies/MoviesCardList/MoviesCardList'
+import {cards} from '../../utils/constants'
+
 function SavedMovies () {
     return (
         <main className='movies-section section'>
-            <SearchForm />
-            <ul className='cards-list'>
-                
-            </ul>
-            <div className='more'>
-                    <button className='more__btn' type='button'>Ещё</button>
-            </div>
+            <MoviesCardList
+                cards = {cards}
+            />
         </main>
     )
 }
