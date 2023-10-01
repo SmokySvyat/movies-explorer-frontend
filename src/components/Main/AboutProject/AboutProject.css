@@ -1,0 +1,111 @@
+.about-project{
+    height: 608px;
+    max-width: 1280px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 110px 70px;
+    display: grid;
+    grid-template-areas:
+        "heading heading"
+        "article-stage article-weeks"
+        "roadmap roadmap";
+        grid-template-rows: 50px 1fr 1fr;
+        grid-template-columns: repeat(2, fit-content());
+        gap: 40px;
+        column-gap: 20px;
+}
+
+.about-project__heading {
+    grid-area: heading;
+}
+
+.about-project__article {
+    grid-area: article-stage;
+}
+.about-project__article:nth-child(2n) {
+    grid-area: article-weeks;
+}
+
+.article-about-project {
+    margin: 26px 0 70px 0;
+}
+
+.roadmap {
+    grid-area: roadmap;
+
+    display: grid;
+    grid-template-columns: minmax(0, 228px) minmax(0, 912px);
+    grid-template-rows: auto;
+
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-align: center;
+}
+
+.roadmap__item {
+    margin: 0 0 14px 0;
+    color: #fff;
+    background: #000;
+    text-align: inherit;
+    line-height: 36px;
+}
+.weeks {
+    color: #000;
+    background: #F2F2F2;
+}
+
+.roadmap-span {
+    color: #A0A0A0;
+    text-align: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 17px;
+}
+
+@media screen and (max-width: 840px) {
+    .about-project {
+        max-width: 768px;
+        height: 585px;
+        padding: 90px 50px;
+        column-gap: 30px;
+    }
+    .article-about-project {
+        margin: 22px 0 53px 0;
+    }
+    .roadmap-span {
+        font-weight: 400;
+    }
+    .roadmap {
+        grid-template-columns: minmax(0, 140px) minmax(0, 528px);
+    }
+}
+
+@media screen and (max-width: 732px) {
+    .about-project {
+        padding: 70px 18px;
+        height: 641px;
+        grid-template-areas:
+            "heading"
+            "article-stage"
+            "article-weeks"
+            "roadmap";
+            gap: 0;
+            grid-template-rows: repeat(4, min-content);
+    }
+    .article-about-project {
+        margin: 0;
+    }
+    .roadmap {
+        margin-top: 60px;
+        grid-template-columns: minmax(0, 100px) minmax(0, 100%);
+        font-size: 11px;
+    }
+    .roadmap-span {
+        font-size: 11px;
+    }
+    .roadmap__item {
+        margin-bottom: 10px;
+    }
+}

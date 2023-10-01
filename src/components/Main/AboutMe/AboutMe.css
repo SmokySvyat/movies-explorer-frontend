@@ -1,0 +1,137 @@
+.about-me {
+    max-width: 1280px;
+    width: 100%;
+    height: 1079px;
+    padding: 110px 70px;
+    box-sizing: border-box;
+    font-style: normal;    
+}
+
+.about-me__article {
+    display: grid;
+    grid-template-areas:
+        "subheading img"
+        "span img"
+        "text img"
+        "link img";
+    grid-template-columns: minmax(320px, 600px) 1fr;
+}
+
+.about-me__heading {
+    grid-area: subheading;
+    margin: 66px 0 18px 0;
+}
+
+.about-me__span {
+    grid-area: span;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 20px;
+}
+
+.about-me__text {
+    grid-area: text;
+    margin: 26px 0 99px 0;
+    line-height: 22px;
+}
+
+.about-me__link {
+    grid-area: link;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.about-me__img {
+    grid-area: img;
+    align-self: self-end;
+    justify-self: self-end;
+    width: 270px;
+    height: 327px;
+    border-radius: 10px;
+    background: url(../../../images/pic-vitaly.png), lightgray 50% / cover no-repeat;
+    
+}
+
+@media screen and (max-width: 840px) {
+    .about-me {
+        max-width: 768px;
+        height: 994px;
+        padding: 90px 50px;
+    }
+    .about-me__heading {
+        font-size: 40px;
+        line-height: 40px;
+        margin-bottom: 16px;
+    }
+    .about-me__span {
+        font-size: 12px;
+    }
+    .about-me__text {
+        width: 364px;
+        line-height: 18px;
+        margin: 20px 0 87px 0;
+    }
+    .about-me__img {
+        width: 255px;
+        height: 307px;
+        margin-top: 66px;
+        align-self: self-start;
+    }
+}
+
+@media screen and (max-width: 732px) {
+    .about-me {
+        height: 1198px;
+        padding: 70px 14px;
+        
+    }
+    .about-me__article {
+        grid-template-rows: repeat(5, min-content);
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "img"
+            "subheading"
+            "span"
+            "text"
+            "link";
+    }
+    .about-me__img {
+        grid-area: img;
+        justify-self: center;
+        margin-top: 60px;
+        width: 292px;
+        height: 352px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+    }
+    .about-me__heading {
+        grid-area: subheading;
+        justify-self: center;
+        width: 290px;
+        margin: 40px 0 20px 0;
+        font-size: 30px;
+        line-height: normal;
+    }
+    .about-me__span {
+        grid-area: span;
+        justify-self: center;
+        width: 290px;
+        font-size: 11px;
+        line-height: 16px;
+    }
+    .about-me__text {
+        grid-area: text;
+        justify-self: center;
+        width: 290px;
+        margin: 20px 0 40px 0;
+        font-size: 11px;
+        line-height: 16px;
+    }
+    .about-me__link {
+        grid-area: link;
+        justify-self: center;
+        width: 290px;
+    }
+}

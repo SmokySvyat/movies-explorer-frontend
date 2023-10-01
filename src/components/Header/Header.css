@@ -1,0 +1,169 @@
+.header{
+    box-sizing: border-box;
+    max-width: 1280px;
+    width: 100%;
+    height: 74px;
+    padding: 0 70px;
+
+    
+    color: #000;
+    display: grid;
+    grid-template-areas:
+        "logo nav";
+    justify-content: space-between;
+}
+
+.header_landing {
+    background-color: #f3c1f8;
+}
+
+.header__logo{
+    grid-area: logo;
+    margin: auto 0;
+}
+
+.burger {
+    width: 44px;
+    height: 44px;
+    
+    border: none;
+    background: transparent;
+    padding: 0;
+    background-image: url(../../images/burger.svg);
+    background-position: center;
+
+    cursor: pointer;
+    transition: all ease 0.3s;
+}
+
+.burger:hover {
+    opacity: 0.8;
+    transition: all ease 0.3s;
+}
+
+.header__nav{
+    grid-area: nav;
+    margin: auto 0;
+}
+
+.nav-list{
+    display: inline-block;
+
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-list__item{
+    display: inline-block;
+    margin: 0 0 0 20px;
+    font-size: 14px;
+    line-height: 18px;
+
+    transition: all ease 0.3s;
+}
+
+.nav-list__item:nth-child(3){
+    margin-left: 50px;
+}
+
+.nav-list__btn{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    background-color: transparent;
+    border: none;
+    margin: 0;
+    padding: 0;
+
+    font-size: 14px;
+    line-height: 18px;
+    cursor: pointer;
+    transition: all ease 0.3s;
+}
+
+.nav-list__btn_active {
+    font-weight: 500;
+}
+
+.nav-list__btn:hover {
+    opacity: 0.8;
+    transition: all ease 0.3s;
+}
+
+.btn-img{
+    width: 30px;
+    height: 30px;
+    border-radius: 6px;
+    margin: 0;
+    margin-left: 13px;
+
+    background: #F9F9F9;
+    background-image: url(../../images/ico__ak.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 10px 10px;
+}
+
+.btn-img_landing {
+    background: #000;
+    background-image: url(../../images/ico__ak_landing.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.nav-list__btn_registration {
+    font-size: 12px;
+    font-weight: 500;
+    margin-right: 10px;
+}
+
+.nav-list__btn_signin{
+    display: block;
+    width: 76px;
+    height: 32px;
+
+    color: #fff;
+    font-size: 12px;
+    font-weight: 500;
+    text-align: center;
+    
+    border-radius: 3px;
+    background: #000;
+}
+
+@media screen and (max-width: 840px) {
+    .header {
+        max-width: 768px;
+        padding: 15px 30px;
+    }
+    .nav-list__item {
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 732px) {
+    .header {
+        padding: 18px 14px;
+    }
+    .burger {
+        width: 23px;
+        height: 30px;
+        margin-top: 2px;
+        margin-right: 8px;
+    }
+    .nav-list__item {
+        margin: 5px 0;
+    }
+    .nav-list__btn_registration {
+        font-size: 10px;
+        margin-right: 14px;
+    }
+    .nav-list__btn_signin {
+        font-size: 10px;
+        width: 54px;
+        height: 26px;
+        
+    }
+}

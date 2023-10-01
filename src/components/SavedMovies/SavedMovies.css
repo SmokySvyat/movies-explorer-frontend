@@ -1,0 +1,5 @@
+.saved-movies__list {
+    min-height: 300px;
+    list-style: none;
+    margin: 0;
+}
