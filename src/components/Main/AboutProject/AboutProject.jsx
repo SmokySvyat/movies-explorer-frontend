@@ -8,7 +8,7 @@ function AboutProject() {
                 <h3 className='subheading'>
                     На выполнение диплома ушло 5 недель
                 </h3>
-                <p className='article article_about-project'>
+                <p className='article article-about-project'>
                     У каждого этапа был мягкий и жёсткий дедлайн,
                     которые нужно было соблюдать, чтобы успешно защититься.
                 </p>
@@ -18,7 +18,7 @@ function AboutProject() {
                 <h3 className='subheading'>
                     Дипломный проект включал 5 этапов
                 </h3>
-                <p className='article article_about-project'>
+                <p className='article article-about-project'>
                     Составление плана, работу над бэкендом, вёрстку,
                     добавление функциональности и финальные доработки.
                 </p>

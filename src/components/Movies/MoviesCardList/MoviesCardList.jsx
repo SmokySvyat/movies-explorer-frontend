@@ -1,6 +1,5 @@
 import './MoviesCardList.css'
 import React, { useState, useEffect } from "react";
-import SearchForm from '../SearchForm/SearchForm'
 import Preloader from '../Preloader/Preloader'
 import MoviesCard from '../MoviesCard/MoviesCard'
 
@@ -51,7 +50,6 @@ function MoviesCardList ({cards}) {
 
     return (
         <section className='movies'>
-            <SearchForm />
             {/* <Preloader /> */}
             <ul className='cards-list'>
                 {render(cards)}

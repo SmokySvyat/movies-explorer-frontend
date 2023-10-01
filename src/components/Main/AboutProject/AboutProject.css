@@ -26,7 +26,7 @@
     grid-area: article-weeks;
 }
 
-.article_about-project {
+.article-about-project {
     margin: 26px 0 70px 0;
 }
 
@@ -67,12 +67,11 @@
 @media screen and (max-width: 840px) {
     .about-project {
         max-width: 768px;
-        /* width: 100%; */
         height: 585px;
         padding: 90px 50px;
         column-gap: 30px;
     }
-    .article_about-project {
+    .article-about-project {
         margin: 22px 0 53px 0;
     }
     .roadmap-span {
@@ -95,7 +94,7 @@
             gap: 0;
             grid-template-rows: repeat(4, min-content);
     }
-    .article_about-project {
+    .article-about-project {
         margin: 0;
     }
     .roadmap {

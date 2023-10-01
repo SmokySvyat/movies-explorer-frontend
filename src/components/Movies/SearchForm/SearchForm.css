@@ -75,7 +75,7 @@
     line-height: 18px;
 }
 
-.form__submit-btn:hover {
+.search__submit-btn:hover {
     opacity: 0.8;
     transition: all ease 0.3s;
 }

@@ -33,15 +33,13 @@ function Overlay (props) {
                           Сохранённые фильмы
                         </Link></li>
 
-                    <li className={location.pathname === '/profile' ? 'overlay__btn overlay__link_active' : 'nav-list__item'}>
+                    <li className={'nav-list__item'}>
                         <Link
                           className='overlay__btn'
                           to={'/profile'}
                           onClick={props.onClose}>
                           Аккаунт
-                          <div className={
-                            location.pathname === '/' ? 'btn-img' : 'btn-img'
-                            }></div>
+                          <div className={'btn-img'}></div>
                         </Link></li>
                 </ul>
             </nav>

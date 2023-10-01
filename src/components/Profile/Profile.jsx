@@ -8,7 +8,7 @@ function Profile (props) {
       };
 
     return (
-        <section className='profile section'>
+        <main className='profile section'>
             <form name='profile' onSubmit={props.handleSubmit}>
                 <h1 className='profile__title'>Привет, {props.name}</h1>
                 <div className='profile__inputs'>
@@ -46,7 +46,7 @@ function Profile (props) {
                     <button className='profile__btn signout'  type='button' onClick={goToMain}>Выйти из аккаунта</button>
                 </div>
             </form>
-        </section>
+        </main>
     )
 }
 
