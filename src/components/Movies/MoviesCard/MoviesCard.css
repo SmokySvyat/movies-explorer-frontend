@@ -23,6 +23,7 @@
     background-color: #000;
     border-radius: 6px;
     object-fit: contain;
+    overflow: hidden;
 }
 
 .card__save {

@@ -1,3 +1,7 @@
+const BASE_MOVIE_URL = 'https://api.nomoreparties.co/beatfilm-movies/'
+const BASE_IMG_URL = 'https://api.nomoreparties.co'
+const BASE_MYAPI_URL = 'http://localhost:3001'
+
 const cards = [
     {
         country: 'russia',
@@ -183,9 +187,9 @@ const cards = [
     },
 ]
 
-const savedCards = []
-
 module.exports = {
-    savedCards,
+    BASE_MOVIE_URL,
+    BASE_MYAPI_URL,
+    BASE_IMG_URL,
     cards,
 }

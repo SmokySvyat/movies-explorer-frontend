@@ -1,17 +1,40 @@
 import './Register.css'
+import React from "react";
 import { Link } from "react-router-dom"
 import logo from "../../images/logo.svg"
 
-function Register (props) {
+function Register ({title, btnValue, handleRegister}) {
+    const [formValue, setFormValue] = React.useState({
+        name: "",
+        email: "",
+        password: "",
+      });
+
+    const handleChange = (e) => {
+      const { name, value } = e.target;
+      setFormValue({
+        ...formValue,
+        [name]: value,
+      });
+    };
+
+    const { name, password, email } = formValue;
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        handleRegister({ name, password, email });
+      };
+
     return (
         <main className='register section'>
-            <form name='registration' className='form'>
+            <form name='registration' className='form' onSubmit={handleSubmit}>
                 <Link className='logo' to={'/'}><img src={logo} alt='логотип проект'/></Link>
-                <h1 className='form__heading'>{props.title}</h1>
+                <h1 className='form__heading'>{title}</h1>
 
                 <label className="form__label">Имя</label>
                 <input
                     className="form__input"
+                    onChange={handleChange}
                     id="name"
                     name='name'
                     type="text"
@@ -23,6 +46,7 @@ function Register (props) {
                 <label className="form__label">E-mail</label>
                 <input
                     className="form__input"
+                    onChange={handleChange}
                     id="email"
                     name='email'
                     type="email"
@@ -31,6 +55,7 @@ function Register (props) {
                 <label className="form__label">Пароль</label>
                 <input
                     className="form__input"
+                    onChange={handleChange}
                     id="password"
                     name="password"
                     type="password"
@@ -41,7 +66,7 @@ function Register (props) {
                     required></input>
                     <span className='form__error'>Что-то пошло не так...</span>
                     <button className="form__btn" type="submit">
-                        {props.btnValue}
+                        {btnValue}
                     </button>
                     <span className="form__span">Уже зарегистрированы? 
                         <Link className="link" to={'/signin'}> Войти</Link>

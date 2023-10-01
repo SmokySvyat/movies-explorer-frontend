@@ -3,7 +3,15 @@ import React, { useState, useEffect } from "react";
 import Preloader from '../Preloader/Preloader'
 import MoviesCard from '../MoviesCard/MoviesCard'
 
-function MoviesCardList ({cards}) {
+function MoviesCardList ({
+    moviesList,
+  isSavedMoviesPage,
+  savedMovies,
+  savedMoviesList,
+  onSave,
+  onDelete,
+}) {
+    const moviesToRender = isSavedMoviesPage ? savedMoviesList : moviesList;
     const resolution = window.innerWidth;
 
     const [visibleCards, setVisibleCards] = useState(getVisibleItems());
@@ -17,42 +25,56 @@ function MoviesCardList ({cards}) {
         }
     }
 
-    function toggleMoreBtn(cards, arr) {
+    function toggleMoreBtn(moviesToRender) {
         getVisibleItems()
-        if (cards.length === arr.length) {
+        console.log(moviesToRender)
+        if (moviesToRender.length <= visibleCards) {
             document.querySelector('.more__btn').classList.add('d-none')
         }
     }
 
-    function render (cards) {
-        const arr = cards.slice(0, visibleCards);
-        // console.log(visibleCards)
-        toggleMoreBtn(cards, arr)
-        return (
-            arr.map((card) => {
-                return (
-                    <MoviesCard
-                        card={card}
-                        key={card.movieId}
-                    />
-                )
-        }))
-    }
+    // function render (cards) {
+    //     console.log(cards)
+    //     // console.log(visibleCards)
+    //     const arr = cards.slice(0, visibleCards);
+    //     toggleMoreBtn(cards, arr)
+    //     return (
+    //         arr.map((card) => {
+    //             return (
+    //                 <MoviesCard
+    //                     card={card}
+    //                     key={card.movieId}
+    //                 />
+    //             )
+    //     }))
+    // }
     const handleShowMore = () => {
         if (resolution >= 1280) {
           setVisibleCards((prevVisibleCards) => prevVisibleCards + 3);
         } else if (resolution > 320 && resolution < 1280) {
           setVisibleCards((prevVisibleCards) => prevVisibleCards + 2);
         } else {
-          setVisibleCards((prevVisibleCards) => prevVisibleCards + 1);
+          setVisibleCards((prevVisibleCards) => prevVisibleCards + 2);
         }
     };
 
     return (
         <section className='movies'>
-            {/* <Preloader /> */}
             <ul className='cards-list'>
-                {render(cards)}
+            {moviesToRender.map((movie) => {
+                // toggleMoreBtn()
+        return (
+          <MoviesCard
+            movie={movie}
+            key={movie.id ?? movie._id}
+            isSavedMoviesPage={isSavedMoviesPage}
+            savedMovies={savedMovies}
+            onSave={onSave}
+            onDelete={onDelete}
+          />
+        );
+      })}
+                {/* {render(cards)} */}
             </ul>
             <div className='more'>
                     <button id='more' className='more__btn' type='button' onClick={handleShowMore}>Ещё</button>

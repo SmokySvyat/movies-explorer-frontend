@@ -1,8 +1,11 @@
 import './MoviesCard.css'
 import { useState } from 'react';
 import { useLocation } from "react-router-dom"
+import { BASE_IMG_URL } from '../../../utils/constants';
 
-function MoviesCard ({ card }) {
+function MoviesCard ({ movie }) {
+    const imageURL = BASE_IMG_URL + movie.image.url
+    // console.log(imageURL)
     const [isLiked, setIsLiked] = useState(false);
     const location = useLocation();
     
@@ -25,9 +28,9 @@ function MoviesCard ({ card }) {
     return (
         <li className='card'>
             <div className={isLikedInSaved ? classNameSavedMovies : classNameMovies} onClick={saveMovie}>{!isLiked ? 'Сохранить' : ''}</div>
-            <img className='card__img' src={card.image} alt={card.description}></img>
-            <h2 className='card__title'>{card.nameRU}</h2>
-            <p className='card__duration'>{card.duration}</p>
+            <img className='card__img' src={imageURL} alt={movie.description}></img>
+            <h2 className='card__title'>{movie.nameRU}</h2>
+            <p className='card__duration'>{movie.duration}</p>
         </li>
     )
 }

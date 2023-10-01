@@ -1,17 +1,45 @@
 import './Login.css'
+import React from "react";
 import { Link } from "react-router-dom"
 import logo from "../../images/logo.svg"
 
-function Login (props) {
+function Login ({ title, btnValue, handleLogin }) {
+    const [formValue, setFormValue] = React.useState({
+        email: "",
+        password: "",
+      });
+    
+      const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormValue({
+          ...formValue,
+          [name]: value,
+        });
+      };
+    
+      const { email, password } = formValue;
+    
+      const [errorMessage, setErrorMessage] = React.useState("");
+    
+      const handleSubmit = (e) => {
+        e.preventDefault();
+    
+        if (!formValue.email || !formValue.password) {
+          setErrorMessage("Both fields are required");
+          return;
+        }
+        handleLogin({ email, password });
+      };
     return (
         <main className='section login'>
-            <form name='login' className='form'>
+            <form name='login' className='form' onSubmit={handleSubmit}>
                 <Link className='logo' to={'/'}><img src={logo} alt='логотип проект'/></Link>
-                <h1 className='form__heading'>{props.title}</h1>
+                <h1 className='form__heading'>{title}</h1>
 
                 <label className="form__label">E-mail</label>
                 <input
                     className="form__input"
+                    onChange={handleChange}
                     id="email"
                     name='email'
                     type="email"
@@ -20,6 +48,7 @@ function Login (props) {
                 <label className="form__label">Пароль</label>
                 <input
                     className="form__input"
+                    onChange={handleChange}
                     id="password"
                     name="password"
                     type="password"
@@ -29,9 +58,9 @@ function Login (props) {
                     placeholder='Пароль'
                     required></input>
 
-                <span className='form__error login__span-error'>Что-то пошло не так...</span>
+                <span className='form__error login__span-error'>{errorMessage}</span>
                     <button className="form__btn login__btn" type="submit">
-                        {props.btnValue}
+                        {btnValue}
                     </button>
                     <span className="form__span">Ещё не зарегистрированы? 
                         <Link className="link" to={'/signup'}> Регистрация</Link>
