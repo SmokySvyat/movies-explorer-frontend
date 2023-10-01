@@ -2,7 +2,7 @@ import './SearchForm.css';
 
 function SearchForm () {
     return (
-        <div className='search'>
+        <section className='search'>
             <form className='search-form'>
                 <div className='search-items'>
                     <span className='search__ico'></span>
@@ -17,7 +17,7 @@ function SearchForm () {
                     <label className='label'>Короткометражки</label>
                 </div>
             </form>
-        </div>
+        </section>
     )
 }
 
