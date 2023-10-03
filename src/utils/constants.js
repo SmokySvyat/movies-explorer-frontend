@@ -1,6 +1,6 @@
 const BASE_MOVIE_URL = 'https://api.nomoreparties.co/beatfilm-movies/'
 const BASE_IMG_URL = 'https://api.nomoreparties.co'
-const BASE_MYAPI_URL = 'http://localhost:3001'
+const BASE_MYAPI_URL = 'http://localhost:3005'
 
 const cards = [
     {

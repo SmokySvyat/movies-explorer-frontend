@@ -3,7 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom"
 import logo from "../../images/logo.svg"
 
-function Register ({title, btnValue, handleRegister}) {
+function Register ({title, btnValue, handleRegister, errorMessage, isLoading}) {
     const [formValue, setFormValue] = React.useState({
         name: "",
         email: "",
@@ -42,6 +42,7 @@ function Register ({title, btnValue, handleRegister}) {
                     maxLength="30"
                     pattern="^[a-zA-ZА-Яа-яЁёs]+$"
                     placeholder='Имя'
+                    disabled={isLoading}
                     required></input>
                 <label className="form__label">E-mail</label>
                 <input
@@ -63,9 +64,10 @@ function Register ({title, btnValue, handleRegister}) {
                     maxLength={12}
                     pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$"
                     placeholder='Пароль'
+                    disabled={isLoading}
                     required></input>
-                    <span className='form__error'>Что-то пошло не так...</span>
-                    <button className="form__btn" type="submit">
+                    <span className='form__error'>{errorMessage}</span>
+                    <button className="form__btn" type="submit" disabled={isLoading}>
                         {btnValue}
                     </button>
                     <span className="form__span">Уже зарегистрированы? 

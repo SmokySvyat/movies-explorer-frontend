@@ -1,8 +1,9 @@
-import {BASE_MYAPI_URL} from '../utils/constants'
+import { BASE_MYAPI_URL, BASE_IMG_URL} from '../utils/constants'
 
 class Api {
-    constructor({url}) {
+    constructor({ url, imgUrl}) {
       this._baseUrl = url;
+      this._baseImgUrl = imgUrl;
     }
   
     _isResultOk(res) {
@@ -36,63 +37,54 @@ class Api {
       .then(res => this._isResultOk(res))
     };
   
-    // getCard() {
-    //   return fetch(`${this._baseUrl}cards`, {
-    //     headers: {
-    //       authorization: `Bearer ${localStorage.getItem('jwt')}`,
-    //       'content-type': 'application/json'
-    //     }
-    //   }).then(res => this._isResultOk(res))
-    // };
-  
-    // postCard(data) {
-    //   return fetch(`${this._baseUrl}cards`, {
-    //     method: 'POST',
-    //     headers: {
-    //       authorization: `Bearer ${localStorage.getItem('jwt')}`,
-    //       'content-type': 'application/json'
-    //     },
-    //     body: JSON.stringify({
-    //       name: data.place,
-    //       link: data.link
-    //     })
-    //   })
-    //   .then(res => this._isResultOk(res))
-    // };
+    saveCard(card) {
+      return fetch(`${this._baseUrl}/movies`, {
+        method: 'POST',
+        headers: {
+          authorization: `Bearer ${localStorage.getItem('jwt')}`,
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify({
+          country: card.country,
+             director: card.director,
+             duration: card.duration,
+             year: card.year,
+             description: card.description,
+             image: this._baseImgUrl + card.image.url,
+             trailerLink: card.trailerLink,
+             nameRU: card.nameRU,
+             nameEN: card.nameEN,
+             thumbnail: this._baseImgUrl + card.image.formats.thumbnail.url,
+             movieId: card.id,
+        })
+      })
+      .then(res => this._isResultOk(res))
+    };
 
-    // deleteCard(cardId) {
-    //   return fetch(`${this._baseUrl}cards/${cardId}`, {
-    //     method: "DELETE",
-    //     headers: {
-    //       authorization: `Bearer ${localStorage.getItem('jwt')}`,
-    //       'content-type': 'application/json'
-    //     },
-    //   }).then(this._isResultOk);
-    // }
+    deleteCard(cardId) {
+      return fetch(`${this._baseUrl}/movies/${cardId}`, {
+        method: "DELETE",
+        headers: {
+          authorization: `Bearer ${localStorage.getItem('jwt')}`,
+          'content-type': 'application/json'
+        },
+      }).then(res => this._isResultOk(res));
+    }
   
-    // like(cardId, isLiked) {
-    //   if (!isLiked) {
-    //     return fetch(`${this._baseUrl}cards/${cardId}/likes`, {
-    //       method: "PUT",
-    //       headers: {
-    //         authorization: `Bearer ${localStorage.getItem('jwt')}`,
-    //         'content-type': 'application/json'
-    //       }
-    //     }).then(this._isResultOk);
-    //   } else {
-    //     return fetch(`${this._baseUrl}cards/${cardId}/likes`, {
-    //       method: "DELETE",
-    //       headers: {
-    //         authorization: `Bearer ${localStorage.getItem('jwt')}`,
-    //         'content-type': 'application/json'
-    //       },
-    //     }).then(this._isResultOk);
-    //   }
-    // }
+    getSavedMovies() {
+      return fetch(`${this._baseUrl}/movies`, {
+        method: "GET",
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("jwt")}`,
+          "Content-Type": "application/json",
+        },
+      }).then(res => this._isResultOk(res));
+    }
   };
 
 export const api = new Api ({
   url: BASE_MYAPI_URL,
+  imgUrl: BASE_IMG_URL,
     // url: 'http://localhost:3000/',
 //   headers: {
 //     authorization: `Bearer ${localStorage.getItem('jwt')}`,

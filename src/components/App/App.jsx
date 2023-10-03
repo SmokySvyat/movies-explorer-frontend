@@ -21,14 +21,14 @@ import * as auth from '../../utils/Auth'
 function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [isLoggedIn, setLoggedIn] = useState(false);          //LOGIN
-  const [allMovies, setAllMovies] = useState([]);
+  const [allCards, setAllCards] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const [savedMovies, setSavedMovies] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [errorRegisterMessage, setRegisterErrorMessage] = useState("");
-  const [loginErrorMessage, setLoginErrorMessage] = useState("");
+  const [errorLoginMessage, setErrorLoginMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [isFormActivated, setFormActivated] = useState(false);
 
@@ -41,15 +41,6 @@ function App() {
       .catch((err) => console.log(err));
   };
 
-  // const getSavedMovies = () => {
-  //   api
-  //     .getSavedMovies()
-  //     .then((movies) => {
-  //       setSavedMovies(movies);
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
-
   const checkToken = () => {
     const jwt = localStorage.getItem("jwt");
     if (jwt) {
@@ -59,7 +50,7 @@ function App() {
           if (res) {
             setLoggedIn(true);
             getUser();
-            // getSavedMovies();
+            getSavedMovies();
           }
         })
         .catch((err) => console.log(err))
@@ -76,12 +67,13 @@ function App() {
 
   const handleRegister = ({ name, email, password }) => {
     setIsLoading(true);
+    setRegisterErrorMessage('')
     auth.register({ name, email, password })
       .then(() => {
         navigate("/signin");
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         setFormActivated(true);
         setRegisterErrorMessage(err.message);
       })
@@ -92,9 +84,9 @@ function App() {
 
   const handleLogin = ({ email,password }) => {
     setIsLoading(true)
+    setErrorLoginMessage('')
     auth.authorize(email, password)
       .then((data) => {
-        // console.log(data)
         if (data.token) {
           localStorage.setItem("jwt", data.token);
           setLoggedIn(true);
@@ -104,8 +96,8 @@ function App() {
         }
       })
       .catch((err) => {
-        console.log(err);
-        setLoginErrorMessage(err.message);
+        // console.log(err);
+        setErrorLoginMessage(err.message);
       })
       .finally(() => {
         setIsLoading(false);
@@ -143,13 +135,13 @@ function App() {
     navigate('/');
   };
 
-  const getMovies = () => {
+  const getCards = () => {
     setIsLoading(true)
       return apiMovies.getCard()
-        .then((movies) => {
-          setAllMovies(movies);
+        .then((card) => {
+          setAllCards(card);
           // console.log(movies)
-          return movies;
+          return card;
          })
         .catch((err) => {
           console.log(err);
@@ -157,6 +149,64 @@ function App() {
         .finally(
           setIsLoading(false)
         );
+  };
+
+  const handleSaveMovie = (card) => {
+    const isSaved = savedMovies.some((item) => card.id === item.movieId);
+
+    if (!isSaved) {
+      api
+        .saveCard(card)
+        .then((savedMovie) => {
+          setSavedMovies([...savedMovies, savedMovie.data]);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      const movieToDelete = savedMovies.find(
+        (item) => item.movieId === card.id
+      );
+
+      if (movieToDelete && movieToDelete._id) {
+        const movieId = savedMovies.find(
+          (item) => item.movieId === card.id
+        )._id;
+        api
+          .deleteCard(movieId)
+          .then(() => {
+            setSavedMovies((cards) =>
+              cards.filter((item) => item._id !== movieId)
+            );
+          })
+          .catch((err) => {
+            console.error('Ошибка при удалении:', err);
+          });
+      } else {
+        console.error('Не удалось найти id');
+      }
+    }
+  };
+
+  function handleDeleteMovie(card) {
+    return api
+      .deleteCard(card._id)
+      .then(() => {
+        setSavedMovies((savedCards) =>
+          savedCards.filter((item) => item._id !== card._id)
+        );
+      })
+      .catch((err) => {
+        console.error('Ошибка при удалении:', err);
+      });
+  }
+  const getSavedMovies = () => {
+    api
+      .getSavedMovies()
+      .then((movies) => {
+        setSavedMovies(movies);
+      })
+      .catch((err) => console.log(err));
   };
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -187,10 +237,10 @@ function App() {
                     element={Movies}
                     loggedIn={isLoggedIn}
                     currentUser={currentUser}
-                    movies={allMovies}
+                    movies={allCards}
                     savedMovies={savedMovies}
-                    // onSave={handleSaveMovie}
-                    getMovies={getMovies}
+                    onSave={handleSaveMovie}
+                    getMovies={getCards}
               />
                   <Footer />
                 </>
@@ -204,8 +254,12 @@ function App() {
                     loggedIn = {isLoggedIn}
                   />
                   <ProtectedRoute
-                    loggedIn={isLoggedIn}
                     element={SavedMovies}
+                    movies={savedMovies}
+                    onDelete={handleDeleteMovie}
+                    loggedIn={isLoggedIn}
+                    currentUser={currentUser}
+                    getSavedMovies={getSavedMovies}
                   />
                   <Footer />
                 </>
@@ -223,6 +277,7 @@ function App() {
                     element={Profile}
                     onUpdateUser={handleUpdateUser}
                     handleSignOut={handleSignOut}
+                    errorMessage={errorMessage}
                   />
                 </>
               }
@@ -235,6 +290,8 @@ function App() {
                   handleRegister={handleRegister}
                   title="Добро пожаловать!"
                   btnValue="Зарегистрироваться"
+                  errorMessage={errorRegisterMessage}
+                  isLoading={isLoading}
                 />
               </>
             }
@@ -247,6 +304,8 @@ function App() {
                   handleLogin={handleLogin}
                   title="Рады видеть!"
                   btnValue="Войти"
+                  errorMessage={errorLoginMessage}
+                  isLoading={isLoading}
                 />
               </>
             }

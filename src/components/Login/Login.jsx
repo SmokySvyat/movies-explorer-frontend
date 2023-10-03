@@ -3,7 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom"
 import logo from "../../images/logo.svg"
 
-function Login ({ title, btnValue, handleLogin }) {
+function Login ({ title, btnValue, handleLogin, errorMessage, isLoading }) {
     const [formValue, setFormValue] = React.useState({
         email: "",
         password: "",
@@ -19,15 +19,10 @@ function Login ({ title, btnValue, handleLogin }) {
     
       const { email, password } = formValue;
     
-      const [errorMessage, setErrorMessage] = React.useState("");
+      // const [errorMessage, setErrorMessage] = React.useState("");
     
       const handleSubmit = (e) => {
         e.preventDefault();
-    
-        if (!formValue.email || !formValue.password) {
-          setErrorMessage("Both fields are required");
-          return;
-        }
         handleLogin({ email, password });
       };
     return (
@@ -44,6 +39,7 @@ function Login ({ title, btnValue, handleLogin }) {
                     name='email'
                     type="email"
                     placeholder='E-mail'
+                    disabled={isLoading}
                     required></input>
                 <label className="form__label">Пароль</label>
                 <input
@@ -56,10 +52,11 @@ function Login ({ title, btnValue, handleLogin }) {
                     maxLength={12}
                     pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$"
                     placeholder='Пароль'
+                    disabled={isLoading}
                     required></input>
 
                 <span className='form__error login__span-error'>{errorMessage}</span>
-                    <button className="form__btn login__btn" type="submit">
+                    <button className="form__btn login__btn" type="submit" disabled={isLoading}>
                         {btnValue}
                     </button>
                     <span className="form__span">Ещё не зарегистрированы? 

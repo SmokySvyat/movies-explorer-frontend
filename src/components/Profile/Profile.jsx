@@ -53,14 +53,14 @@ function Profile (props) {
                             name='e-mail'
                             type='email'
                             minLength={8}
-                            maxLength={12}
+                            // maxLength={12}
                             autoComplete='email'
                             value={value.email ?? ""}
                             required
                         ></input>
                     </div>
                 </div>
-                <span className='profile__error d-none'>При обновлении профиля произошла ошибка.</span>
+                <span className='profile__error'>{props.errorMessage}</span>
                 <div className='profile__controls'>
                     <button className='profile__btn' type='submit'>Редактировать</button>
                     <button className='profile__btn signout'  type='button' onClick={props.handleSignOut}>Выйти из аккаунта</button>
