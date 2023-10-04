@@ -2,29 +2,50 @@ import './Login.css'
 import React from "react";
 import { Link } from "react-router-dom"
 import logo from "../../images/logo.svg"
+import { EMAIL_REGEXP, PASSWORD_REGEXP } from '../../utils/constants';
 
 function Login ({ title, btnValue, handleLogin, errorMessage, isLoading }) {
     const [formValue, setFormValue] = React.useState({
         email: "",
         password: "",
       });
+    const { password, email } = formValue;
+    const [isFormValid, setIsFormValid] = React.useState(false);
+    const [isFormEmpty, setIsFormEmpty] = React.useState(true);
     
-      const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormValue({
-          ...formValue,
-          [name]: value,
-        });
+    const handleChange = (e) => {
+      const { name, value } = e.target;
+      setFormValue({
+        ...formValue,
+        [name]: value,
+      });
+    };
+    
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      handleLogin({ email, password });
+    };
+
+    const isEmailValid = () => { return EMAIL_REGEXP.test(email.trim()) && email.trim().length >= 2 && email.trim().length <= 20 };
+    const isPasswordValid = () => { return PASSWORD_REGEXP.test(password.trim()) && password.trim().length >= 8 };
+    const emailClassName = isEmailValid() ? 'form__input' : 'form__input form__input_on-error';
+    const passwordClassName = isPasswordValid() ? 'form__input' : 'form__input form__input_on-error';
+
+    React.useEffect(() => {
+        const isInputValid = () => {
+            return isEmailValid() && isPasswordValid();
       };
     
-      const { email, password } = formValue;
-    
-      // const [errorMessage, setErrorMessage] = React.useState("");
-    
-      const handleSubmit = (e) => {
-        e.preventDefault();
-        handleLogin({ email, password });
-      };
+      setIsFormValid(isInputValid());
+      setIsFormEmpty(
+        email.trim() === "" || password.trim() === ""
+      );
+    }, [email, password]);
+
+    const isBtnDisabled = () => {
+        return isLoading || isFormEmpty || !isFormValid
+    }
+
     return (
         <main className='section login'>
             <form name='login' className='form' onSubmit={handleSubmit}>
@@ -33,7 +54,7 @@ function Login ({ title, btnValue, handleLogin, errorMessage, isLoading }) {
 
                 <label className="form__label">E-mail</label>
                 <input
-                    className="form__input"
+                    className={emailClassName}
                     onChange={handleChange}
                     id="email"
                     name='email'
@@ -43,20 +64,19 @@ function Login ({ title, btnValue, handleLogin, errorMessage, isLoading }) {
                     required></input>
                 <label className="form__label">Пароль</label>
                 <input
-                    className="form__input"
+                    className={passwordClassName}
                     onChange={handleChange}
                     id="password"
                     name="password"
                     type="password"
                     minLength={8}
-                    maxLength={12}
-                    pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$"
+                    maxLength={20}
                     placeholder='Пароль'
                     disabled={isLoading}
                     required></input>
 
                 <span className='form__error login__span-error'>{errorMessage}</span>
-                    <button className="form__btn login__btn" type="submit" disabled={isLoading}>
+                    <button className="form__btn login__btn" type="submit" disabled={isBtnDisabled()}>
                         {btnValue}
                     </button>
                     <span className="form__span">Ещё не зарегистрированы? 

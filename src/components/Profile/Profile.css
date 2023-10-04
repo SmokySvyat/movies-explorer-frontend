@@ -49,8 +49,12 @@
     text-align: right;
     border: none;
     padding: 0;
-    width: 60%;
+    width: min-content;
     margin: 0;
+}
+
+.profile__input_on-error {
+    border-bottom: 1px solid red;
 }
 
 .profile__input:focus{

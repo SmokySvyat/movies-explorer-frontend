@@ -12,6 +12,15 @@ class Api {
       }
       return Promise.reject(`Ошибка: ${res.status}`)
     };
+
+    _isOk = (res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return res.json().then((res) => {
+        throw res;
+      });
+    }
   
     getProfile() {
       return fetch(`${this._baseUrl}/users/me`, {
@@ -34,7 +43,7 @@ class Api {
         },
         body: JSON.stringify(values)
       })
-      .then(res => this._isResultOk(res))
+      .then(res => this._isOk(res))
     };
   
     saveCard(card) {

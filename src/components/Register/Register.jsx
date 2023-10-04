@@ -2,13 +2,17 @@ import './Register.css'
 import React from "react";
 import { Link } from "react-router-dom"
 import logo from "../../images/logo.svg"
+import { NAME_REGEXP, EMAIL_REGEXP, PASSWORD_REGEXP } from '../../utils/constants';
 
 function Register ({title, btnValue, handleRegister, errorMessage, isLoading}) {
     const [formValue, setFormValue] = React.useState({
         name: "",
         email: "",
         password: "",
-      });
+    });
+    const { name, password, email } = formValue;
+    const [isFormValid, setIsFormValid] = React.useState(false);
+    const [isFormEmpty, setIsFormEmpty] = React.useState(true);
 
     const handleChange = (e) => {
       const { name, value } = e.target;
@@ -18,12 +22,40 @@ function Register ({title, btnValue, handleRegister, errorMessage, isLoading}) {
       });
     };
 
-    const { name, password, email } = formValue;
+    const isNameValid = () => { return name.trim().length >= 2 && name.trim().length <= 20 && NAME_REGEXP.test(name.trim())};
+    const isEmailValid = () => { return EMAIL_REGEXP.test(email.trim()) && email.trim().length >= 2 && email.trim().length <= 20 };
+    const isPasswordValid = () => { return PASSWORD_REGEXP.test(password.trim()) && password.trim().length >= 8 };
+    const nameClassName = isNameValid() ? 'form__input' : 'form__input form__input_on-error';
+    const emailClassName = isEmailValid() ? 'form__input' : 'form__input form__input_on-error';
+    const passwordClassName = isPasswordValid() ? 'form__input' : 'form__input form__input_on-error';
+
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
         handleRegister({ name, password, email });
+    };
+
+    React.useEffect(() => {
+        // console.log(`input name ${isNameValid()}`)
+        // console.log(`input email ${isEmailValid()}`)
+        // console.log(`input password ${isPasswordValid()}`)
+        const isInputValid = () => {
+            return isNameValid() && isEmailValid() && isPasswordValid();
       };
+    
+      setIsFormValid(isInputValid());
+      setIsFormEmpty(
+        name.trim() === "" || email.trim() === "" || password.trim() === ""
+      );
+    }, [name, email, password]);
+
+    const isBtnDisabled = () => {
+        // console.log(`is form valid ${isFormValid}`)
+        // console.log(`is loading ${isLoading}`)
+        // console.log(`is form empty ${isFormEmpty}`)
+        return isLoading || isFormEmpty || !isFormValid
+    }
 
     return (
         <main className='register section'>
@@ -33,20 +65,19 @@ function Register ({title, btnValue, handleRegister, errorMessage, isLoading}) {
 
                 <label className="form__label">Имя</label>
                 <input
-                    className="form__input"
+                    className={nameClassName}
                     onChange={handleChange}
                     id="name"
                     name='name'
                     type="text"
                     minLength="2"
                     maxLength="30"
-                    pattern="^[a-zA-ZА-Яа-яЁёs]+$"
                     placeholder='Имя'
                     disabled={isLoading}
                     required></input>
                 <label className="form__label">E-mail</label>
                 <input
-                    className="form__input"
+                    className={emailClassName}
                     onChange={handleChange}
                     id="email"
                     name='email'
@@ -55,19 +86,18 @@ function Register ({title, btnValue, handleRegister, errorMessage, isLoading}) {
                     required></input>
                 <label className="form__label">Пароль</label>
                 <input
-                    className="form__input"
+                    className={passwordClassName}
                     onChange={handleChange}
                     id="password"
                     name="password"
                     type="password"
                     minLength={8}
-                    maxLength={12}
-                    pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$"
+                    maxLength={20}
                     placeholder='Пароль'
                     disabled={isLoading}
                     required></input>
                     <span className='form__error'>{errorMessage}</span>
-                    <button className="form__btn" type="submit" disabled={isLoading}>
+                    <button className="form__btn" type="submit" disabled={isBtnDisabled()}>
                         {btnValue}
                     </button>
                     <span className="form__span">Уже зарегистрированы? 

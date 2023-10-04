@@ -70,7 +70,8 @@ function App() {
     setRegisterErrorMessage('')
     auth.register({ name, email, password })
       .then(() => {
-        navigate("/signin");
+        handleLogin({ email,password })
+        navigate("/movies");
       })
       .catch((err) => {
         // console.log(err);
@@ -92,7 +93,7 @@ function App() {
           setLoggedIn(true);
           checkToken()
           setCurrentUser(data)
-          navigate("/");
+          navigate("/movies");
         }
       })
       .catch((err) => {
@@ -111,14 +112,14 @@ function App() {
       .then((res) => {
         setCurrentUser(res);
         // setFormActivated(false);
-        // setSuccessMessage(SECSESS_UPDATE_PROFILE);
-        // setErrorMessage("");
+        setSuccessMessage('Профиль успешно обновлен');
+        setErrorMessage('');
       })
       .catch((err) => {
         console.log(err.message);
         // setFormActivated(true);
-        // setSuccessMessage("");
-        // setErrorMessage(err.message);
+        setSuccessMessage('');
+        setErrorMessage(err.message);
       })
       .finally(() => {
         setIsLoading(false);
@@ -278,6 +279,7 @@ function App() {
                     onUpdateUser={handleUpdateUser}
                     handleSignOut={handleSignOut}
                     errorMessage={errorMessage}
+                    isLoading={isLoading}
                   />
                 </>
               }
