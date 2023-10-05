@@ -4,34 +4,24 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 import { NAME_REGEXP, EMAIL_REGEXP } from '../../utils/constants';
 
 function Profile (props) {
-    const [isFormValid, setIsFormValid] = React.useState(false);
-    const [isFormEmpty, setIsFormEmpty] = React.useState(true);
+    React.useEffect(() => {
+        localStorage.setItem("currentPath", "/profile");
+      }, []);
     const currentUser = React.useContext(CurrentUserContext);
     const [value, setValue] = React.useState({
         name: currentUser.name,
         email: currentUser.email,
-      });
-
-    React.useEffect(() => {
-        console.log(currentUser)
-        setValue({
-          name: currentUser.name,
-          email: currentUser.email,
-        });
-        const isInputValid = () => {
-            return isNameValid() && isEmailValid();
-        };
-    
-        setIsFormValid(isInputValid());
-        setIsFormEmpty(
-          name.trim() === "" || email.trim() === ""
-        );
-      }, [currentUser]);
-
+    });
     const { name, email } = value;
+    const [isFormValid, setIsFormValid] = React.useState(false);
+    const [isFormEmpty, setIsFormEmpty] = React.useState(true);
 
+    
+    
     function handleChange(e) {
-      setValue({ ...value, [e.target.name]: e.target.value });
+        setValue({ ...value, [e.target.name]: e.target.value });
+        props.setSuccessMessage('');
+        props.setErrorMessage('');
     }
 
     function handleSubmit(e) {
@@ -39,15 +29,30 @@ function Profile (props) {
         props.onUpdateUser(value)
     }
 
+    const isChanged = () => { return value.name !== currentUser.name || value.email !== currentUser.email;}
     const isNameValid = () => { return name.trim().length >= 2 && name.trim().length <= 20 && NAME_REGEXP.test(name.trim())};
-    const isEmailValid = () => { return EMAIL_REGEXP.test(email.trim()) && email.trim().length >= 2 && email.trim().length <= 20 };
+    const isEmailValid = () => { return EMAIL_REGEXP.test(email.trim()) && email.trim().length >= 2 && email.trim().length <= 200 };
     const nameClassName = isNameValid() ? 'profile__input' : 'profile__input profile__input_on-error';
     const emailClassName = isEmailValid() ? 'profile__input' : 'profile__input profile__input_on-error';
+    const tipsClassName = props.errorMessage ? 'profile__tips profile__tips_error' : 'profile__tips profile__tips_ok'
+    const message = props.errorMessage ? props.errorMessage : props.successMessage;
+    React.useEffect(() => {
+        const isInputValid = () => {
+            return isNameValid() && isEmailValid() && isChanged();
+        };
+        setIsFormValid(isInputValid());
+        setIsFormEmpty(
+          name.trim() === "" || email.trim() === ""
+        );
+      }, [name, email]);
 
     const isBtnDisabled = () => {
+        // console.log(`*is name valid ${isNameValid()}`)
+        // console.log(`*is email valid ${isEmailValid()}`)
         // console.log(`is form valid ${isFormValid}`)
-        // console.log(`is loading ${isLoading}`)
+        // console.log(`is loading ${props.isLoading}`)
         // console.log(`is form empty ${isFormEmpty}`)
+        // console.log(`is changed ${isChanged()}`)
         return props.isLoading || isFormEmpty || !isFormValid
     }
 
@@ -67,7 +72,6 @@ function Profile (props) {
                             minLength={2}
                             maxLength={30}
                             value={value.name ?? ""}
-                            pattern={NAME_REGEXP}
                             required
                             disabled={props.isLoading}
                         ></input>
@@ -83,15 +87,14 @@ function Profile (props) {
                             minLength={8}
                             maxLength={200}
                             value={value.email ?? ""}
-                            pattern={EMAIL_REGEXP}
                             required
                             disabled={props.isLoading}
                         ></input>
                     </div>
                 </div>
-                <span className='profile__error'>{props.errorMessage}</span>
+                <span className={tipsClassName}>{message}</span>
                 <div className='profile__controls'>
-                    <button className='profile__btn' type='submit' disabled={isBtnDisabled}>Редактировать</button>
+                    <button className='profile__btn' type='submit' disabled={isBtnDisabled()}>Редактировать</button>
                     <button className='profile__btn signout'  type='button' onClick={props.handleSignOut} disabled={props.isLoading}>Выйти из аккаунта</button>
                 </div>
             </form>

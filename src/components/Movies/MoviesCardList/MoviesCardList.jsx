@@ -1,15 +1,21 @@
 import './MoviesCardList.css'
 import MoviesCard from '../MoviesCard/MoviesCard'
+import { useLocation } from "react-router-dom"
 
 function MoviesCardList ({
     moviesList,
-    isSavedMoviesPage,
     savedMovies,
     savedMoviesList,
     onSave,
     onDelete,
   }) {
-    const cardsToRender = isSavedMoviesPage ? savedMoviesList : moviesList;
+    const location = useLocation();
+    const isLocationSavedMovies = () => {
+        if (location.pathname === '/saved-movies'){
+            return true
+        } else {return false}
+    }
+    const cardsToRender = isLocationSavedMovies() ? savedMoviesList : moviesList;
 
     return (
         <section className='movies'>
@@ -17,9 +23,9 @@ function MoviesCardList ({
             {cardsToRender.map((movie) => {
               return (
                 <MoviesCard
-                  movie={movie}
                   key={movie.id ?? movie._id}
-                  isSavedMoviesPage={isSavedMoviesPage}
+                  isSavedPage={isLocationSavedMovies()}
+                  movie={movie}
                   savedMovies={savedMovies}
                   onSave={onSave}
                   onDelete={onDelete}

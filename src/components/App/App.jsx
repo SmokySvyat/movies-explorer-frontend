@@ -1,5 +1,5 @@
 import './App.css';
-import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import { useState,useEffect } from 'react';
 
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
@@ -19,18 +19,17 @@ import {api} from '../../utils/MainApi'
 import * as auth from '../../utils/Auth'
 
 function App() {
-  const [currentUser, setCurrentUser] = useState({});
-  const [isLoggedIn, setLoggedIn] = useState(false);          //LOGIN
-  const [allCards, setAllCards] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const [currentUser, setCurrentUser] = useState({});
+  const [isLoggedIn, setLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
+  const [allCards, setAllCards] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [errorRegisterMessage, setRegisterErrorMessage] = useState("");
   const [errorLoginMessage, setErrorLoginMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
-  const [isFormActivated, setFormActivated] = useState(false);
 
   const getUser = () => {
     api
@@ -63,6 +62,8 @@ function App() {
   };
   useEffect(() => {
     checkToken();
+    setSuccessMessage('');
+    setErrorMessage('');
   }, []);
 
   const handleRegister = ({ name, email, password }) => {
@@ -74,8 +75,6 @@ function App() {
         navigate("/movies");
       })
       .catch((err) => {
-        // console.log(err);
-        setFormActivated(true);
         setRegisterErrorMessage(err.message);
       })
       .finally(() => {
@@ -111,13 +110,11 @@ function App() {
       .patchProfile({ id, name, email })
       .then((res) => {
         setCurrentUser(res);
-        // setFormActivated(false);
         setSuccessMessage('Профиль успешно обновлен');
         setErrorMessage('');
       })
       .catch((err) => {
         console.log(err.message);
-        // setFormActivated(true);
         setSuccessMessage('');
         setErrorMessage(err.message);
       })
@@ -127,11 +124,7 @@ function App() {
   };
 
   const handleSignOut = () => {
-    localStorage.removeItem("jwt");
-    localStorage.removeItem("query");
-    localStorage.removeItem("isShortFilm");
-    localStorage.removeItem("searchResults");
-    localStorage.removeItem("currentPath");
+    localStorage.clear();
     setLoggedIn(false);
     navigate('/');
   };
@@ -153,13 +146,15 @@ function App() {
   };
 
   const handleSaveMovie = (card) => {
-    const isSaved = savedMovies.some((item) => card.id === item.movieId);
+    const isSaved = savedMovies.some(
+      (item) => card.id === item.movieId
+    );
 
     if (!isSaved) {
       api
         .saveCard(card)
-        .then((savedMovie) => {
-          setSavedMovies([...savedMovies, savedMovie.data]);
+        .then((newMovie) => {
+          setSavedMovies([newMovie, ...savedMovies]);
         })
         .catch((err) => {
           console.log(err);
@@ -211,7 +206,7 @@ function App() {
   };
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <div className='root'>
+      <div className='app'>
         <Routes>
           <Route path="*" element={<NotFound />} />
 
@@ -279,7 +274,10 @@ function App() {
                     onUpdateUser={handleUpdateUser}
                     handleSignOut={handleSignOut}
                     errorMessage={errorMessage}
+                    successMessage={successMessage}
                     isLoading={isLoading}
+                    setErrorMessage={setErrorMessage}
+                    setSuccessMessage={setSuccessMessage}
                   />
                 </>
               }

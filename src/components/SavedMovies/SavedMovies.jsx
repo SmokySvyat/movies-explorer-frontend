@@ -1,7 +1,6 @@
 import './SavedMovies.css'
 import { useState, useEffect } from 'react'
 import MoviesCardList from '../Movies/MoviesCardList/MoviesCardList'
-// import {cards} from '../../utils/constants'
 import SearchForm from '../Movies/SearchForm/SearchForm'
 
 function SavedMovies ({ movies, onDelete }) {

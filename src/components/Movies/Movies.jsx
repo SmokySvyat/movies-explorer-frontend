@@ -2,11 +2,16 @@ import './Movies.css'
 import { useEffect, useState } from 'react';
 import MoviesCardList from './MoviesCardList/MoviesCardList'
 import SearchForm from '../Movies/SearchForm/SearchForm'
-import {cards} from '../../utils/constants'
-import { apiMovies } from '../../utils/MoviesApi';
 import Preloader from './Preloader/Preloader';
 
-function Movies ({ movies, savedMovies, onSave, getMovies }) {
+function Movies ({
+  movies,
+  savedMovies,
+  onSave,
+  getMovies,
+  isLiked,
+  setIsLiked
+}) {
   const [searchResults, setSearchResults] = useState(
     JSON.parse(localStorage.getItem("searchResults")) || []
   );
@@ -39,9 +44,7 @@ function Movies ({ movies, savedMovies, onSave, getMovies }) {
 
   function getInitialVisibleCards() {
     const screenWidth = window.innerWidth;
-    if (screenWidth >= 1279) {
-      return 16;
-    } else if (screenWidth >= 1040) {
+    if (screenWidth >= 840) {
       return 12;
     } else if (screenWidth >= 641) {
       return 8;
@@ -51,10 +54,10 @@ function Movies ({ movies, savedMovies, onSave, getMovies }) {
   }
   const handleShowMoreClick = () => {
     const screenWidth = window.innerWidth;
-    if (screenWidth >= 1279) {
-      setVisibleCards((prevVisibleCards) => prevVisibleCards + 4);
-    } else if (screenWidth >= 1040) {
+    if (screenWidth >= 840) {
       setVisibleCards((prevVisibleCards) => prevVisibleCards + 3);
+    } else if (screenWidth >= 320) {
+      setVisibleCards((prevVisibleCards) => prevVisibleCards + 2);
     } else {
       setVisibleCards((prevVisibleCards) => prevVisibleCards + 2);
     }
@@ -147,20 +150,13 @@ function Movies ({ movies, savedMovies, onSave, getMovies }) {
                 ) : (
                   <MoviesCardList
                     moviesList={searchResults.slice(0, visibleCards)}
-                    isSavedMoviesPage={false}
                     savedMovies={savedMovies}
                     onSave={onSave}
+                    isLiked={isLiked}
+                    setliked={setIsLiked}
                   />
                 )}
             {searchResults === 0 || visibleCards < searchResults.length ? (
-              // <button
-              //   className={`addMoviesTable__button ${
-              //     isLoading ? "addMoviesTable__button_off" : ""
-              //   }`}
-              //   onClick={handleShowMoreClick}
-              // >
-              //   Еще
-              // </button>
               <div className='more'>
                 <button id='more' className={`more__btn ${ isLoading ? 'd-none' : ''}`} type='button' onClick={handleShowMoreClick}>Ещё</button>
               </div>

@@ -1,7 +1,7 @@
 @import url(./vendor/normalize.css);
 @import url(./vendor/fonts/fonts.css);
 
-.root {
+.app {
   font-family: 'Inter', Arial, Helvetica, sans-serif;
   text-rendering: optimizeLegibility;
   line-height: 1.15;
