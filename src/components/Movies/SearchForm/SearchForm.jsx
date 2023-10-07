@@ -28,8 +28,6 @@ function SearchForm ({
         }
       };
       
-      const isChecked = () => {
-        return isShortFilm ? 'checked' : ''}
     return (
         <section className='search'>
             <form className='search-form' onSubmit={handleSubmit}>
@@ -46,7 +44,7 @@ function SearchForm ({
                 </div>
                 <div className='control-items'>
                     <label className='switch'>
-                        <input className='checkbox' type='checkbox' onClick={handleShortFilmToggle} onChange={isChecked}></input>
+                        <input className='checkbox' type='checkbox' onChange={handleShortFilmToggle} checked={isShortFilm}></input>
                         <span className='slider'></span>
                     </label>
                     <label className='label'>Короткометражки</label>

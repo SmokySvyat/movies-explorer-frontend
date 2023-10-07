@@ -3,7 +3,6 @@ import { BASE_MOVIE_URL } from "./constants";
 class Api {
     constructor({url}) {
       this._baseUrl = url;
-    //   this._headers = headers;
     }
   
     _isResultOk(res) {
@@ -15,15 +14,12 @@ class Api {
   
     getCard() {
       return fetch(this._baseUrl)
-        // .then(res => console.log(this._isResultOk(res)))
         .then(res => this._isResultOk(res))
+        .catch(err => console.log(err))
     };
   };
 
 export const apiMovies = new Api ({
   url: BASE_MOVIE_URL,
-//   headers: {
-//     'content-type': 'application/json'
-//   }
   }
 );

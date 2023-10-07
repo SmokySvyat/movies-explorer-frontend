@@ -59,7 +59,6 @@ function SavedMovies ({ movies, onDelete }) {
             />
             <MoviesCardList
               savedMoviesList={searchResults}
-              isSavedMoviesPage={true}
               onDelete={onDelete}
             />{' '}
         </main>

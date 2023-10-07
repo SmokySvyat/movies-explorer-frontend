@@ -44,6 +44,7 @@ class Api {
         body: JSON.stringify(values)
       })
       .then(res => this._isOk(res))
+      .catch(err => console.log(err))
     };
   
     saveCard(card) {
@@ -68,6 +69,7 @@ class Api {
         })
       })
       .then(res => this._isResultOk(res))
+      .catch(err => console.log(err))
     };
 
     deleteCard(cardId) {
@@ -77,7 +79,9 @@ class Api {
           authorization: `Bearer ${localStorage.getItem('jwt')}`,
           'content-type': 'application/json'
         },
-      }).then(res => this._isResultOk(res));
+      })
+      .then(res => this._isResultOk(res))
+      .catch(err => console.log(err))
     }
   
     getSavedMovies() {
@@ -87,17 +91,14 @@ class Api {
           authorization: `Bearer ${localStorage.getItem("jwt")}`,
           "Content-Type": "application/json",
         },
-      }).then(res => this._isResultOk(res));
+      })
+      .then(res => this._isResultOk(res))
+      .catch(err => console.log(err))
     }
   };
 
 export const api = new Api ({
   url: BASE_MYAPI_URL,
   imgUrl: BASE_IMG_URL,
-    // url: 'http://localhost:3000/',
-//   headers: {
-//     authorization: `Bearer ${localStorage.getItem('jwt')}`,
-//     'content-type': 'application/json'
-//   }
   }
 );

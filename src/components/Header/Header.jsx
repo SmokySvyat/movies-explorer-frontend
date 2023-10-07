@@ -44,8 +44,6 @@ function Header (props) {
         <button className='burger' type='button' onClick={handleOpenOverlay}></button>
       )
     } else if (isLogin) {
-      // console.log(`Если true ${isLogin}`)
-      // console.log(location)
       return (
         <ul className='nav-list'>
           <li className='nav-list__item'>
@@ -74,8 +72,6 @@ function Header (props) {
         </ul>
       )
     } else {
-      // console.log(`Если false ${isLogin}`)
-      // console.log(location)
       return (
         <ul className='nav-list'>
           <li className='nav-list__item'>

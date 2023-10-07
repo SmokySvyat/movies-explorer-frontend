@@ -38,11 +38,12 @@ function MoviesCard ({
             <div
               className={isSavedPage ? classNameSavedMovies : classNameMovies}
               onClick={isSavedPage ? handleDeliteClick : handleSaveClick}
+              title={isSavedPage ? 'Удалить из профиля' : !isLiked ? 'Добавить к себе в профиль' : 'Удалить из профиля'}
             >
               {isSavedPage? '' : !isLiked ? 'Сохранить' : ''}
             </div>
-            <Link className='card__img' to={movie.trailerLink} target='blank'>
-              <img className='card__img' src={imageURL} alt={movie.description}></img>
+            <Link className='card__img' to={movie.trailerLink} target='blank' title={movie.description}>
+              <img className='card__img' src={imageURL} alt={movie.nameRU}></img>
             </Link>
             <h2 className='card__title' title={movie.nameRU}>{movie.nameRU}</h2>
             <p className='card__duration'>{convertedDuration}</p>

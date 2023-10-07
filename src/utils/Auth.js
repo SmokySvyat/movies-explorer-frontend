@@ -1,12 +1,5 @@
 import {BASE_MYAPI_URL} from '../utils/constants'
 
-// const checkResponse = (res) => {
-//     if (res.ok) {
-//       return res.json();
-//     }
-//     return Promise.reject(res);
-// };
-
 const isOk = (res) => {
   if (res.ok) {
     return res.json();
@@ -26,6 +19,7 @@ export const register = ({ name, email, password }) => {
     body: JSON.stringify({ name, email, password }),
   })
     .then((res) => isOk(res))
+    .catch(err => console.log(err))
 };
 
 export const authorize = (email, password) => {
@@ -37,4 +31,5 @@ export const authorize = (email, password) => {
     },
     body: JSON.stringify({ email, password }),
   }).then((res) => isOk(res))
+  .catch(err => console.log(err))
 };
