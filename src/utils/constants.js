@@ -1,6 +1,6 @@
 const BASE_MOVIE_URL = 'https://api.nomoreparties.co/beatfilm-movies/'
 const BASE_IMG_URL = 'https://api.nomoreparties.co'
-const BASE_MYAPI_URL = 'http://localhost:3002'
+const BASE_MYAPI_URL = 'api.diplom.svyat.nomoredomainsicu.ru'
 const NAME_REGEXP = /^[-a-zA-ZА-Яа-яЁё\s]+$/
 const EMAIL_REGEXP = /^\S+@\S+\.\S+$/;
 const PASSWORD_REGEXP = /(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}/;
