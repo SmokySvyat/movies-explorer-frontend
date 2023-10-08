@@ -7,7 +7,7 @@ function Profile (props) {
     React.useEffect(() => {
         localStorage.setItem("currentPath", "/profile");
       }, []);
-    const {currentUser} = React.useContext(CurrentUserContext);
+    const { currentUser } = React.useContext(CurrentUserContext);
     const [value, setValue] = React.useState({
         name: currentUser.name,
         email: currentUser.email,
@@ -42,7 +42,7 @@ function Profile (props) {
     function handleSubmit(e) {
         e.preventDefault();
         setActivateForm(false)
-        console.log(`handle submit ${currentUser}`)
+        // console.log(`handle submit ${currentUser}`)
         props.onUpdateUser(value)
     }
 
@@ -57,12 +57,14 @@ function Profile (props) {
         const isInputValid = () => {
             return isNameValid() && isEmailValid() && isChanged();
         };
+        props.setErrorMessage('');
+        props.setSuccessMessage('');
         setIsFormValid(isInputValid() && isChanged());
         setIsFormEmpty(
           name.trim() === "" || email.trim() === ""
         );
       }, [name, email]);
-
+      
     const isBtnDisabled = () => {
         // console.log(`*is name valid ${isNameValid()}`)
         // console.log(`*is email valid ${isEmailValid()}`)

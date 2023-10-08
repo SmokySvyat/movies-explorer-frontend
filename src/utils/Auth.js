@@ -4,7 +4,7 @@ const isOk = (res) => {
   if (res.ok) {
     return res.json();
   }
-  console.log(res);
+  // console.log(res);
   return res.json().then((res) => {
     throw res;
   });
@@ -31,5 +31,5 @@ export const authorize = (email, password) => {
     },
     body: JSON.stringify({ email, password }),
   }).then((res) => isOk(res))
-  .catch(err => console.log(err))
+  .catch(err => console.log(err.message))
 };

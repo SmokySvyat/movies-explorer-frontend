@@ -16,7 +16,6 @@ import { ProtectedRoute, ProtectedAuthRoute } from '../ProtectedRoute/ProtectedR
 
 import { apiMovies } from '../../utils/MoviesApi';
 import {api} from '../../utils/MainApi'
-import * as auth from '../../utils/Auth'
 
 function App() {
   const navigate = useNavigate();
@@ -69,7 +68,8 @@ function App() {
   const handleRegister = ({ name, email, password }) => {
     setIsLoading(true);
     setRegisterErrorMessage('')
-    auth.register({ name, email, password })
+    api
+      .register({ name, email, password })
       .then(() => {
         handleLogin({ email,password })
         navigate("/movies");
@@ -88,14 +88,15 @@ function App() {
     }
     setIsLoading(true)
     setErrorLoginMessage('')
-    auth.authorize(email, password)
-      .then((data) => {
-        if (data.token) {
-          localStorage.setItem("jwt", data.token);
+    api
+      .authorize(email, password)
+      .then((res) => {
+        console.log(res)
+          localStorage.setItem("jwt", res.token);
           setLoggedIn(true);
           checkToken()
           navigate('/movies', {replace:true});
-        }
+        
       })
       .catch((err) => {
         console.log(err);
@@ -106,19 +107,17 @@ function App() {
       });
   };
 
-  const handleUpdateUser = ({ id, name, email }) => {
-    console.log(`handle update 1 ${console.log(currentUser)}`)
+  const handleUpdateUser = ({ id, name, email }, next) => {
     setIsLoading(true);
     api
       .patchProfile({ id, name, email })
       .then((res) => {
         setSuccessMessage('Профиль успешно обновлен');
         setErrorMessage('');
-        console.log(`handle update 2 ${console.log(currentUser)}`)
-        return setCurrentUser(res);
+        getUser();
       })
       .catch((err) => {
-        console.log(err.message);
+        console.log(err);
         setSuccessMessage('');
         setErrorMessage(err.message);
       })

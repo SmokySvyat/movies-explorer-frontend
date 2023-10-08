@@ -7,20 +7,46 @@ class Api {
     }
   
     _isResultOk(res) {
-      if (res.ok) {
-        return res.json()
+      if (!res.ok) {
+        return Promise.reject(`${res.status}`);
       }
-      return Promise.reject(`Ошибка: ${res.status}`)
+      return res.json();
     };
 
     _isOk = (res) => {
       if (res.ok) {
         return res.json();
-      }
+      } else {
       return res.json().then((res) => {
+        // console.log(res)
         throw res;
-      });
+      })
+      }
     }
+
+    register = ({ name, email, password }) => {
+      return fetch(`${this._baseUrl}/signup`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name, email, password }),
+      })
+        .then((res) => this._isOk(res))
+    };
+
+    authorize = (email, password) => {
+      return fetch(`${this._baseUrl}/signin`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    })
+    .then((res) => this._isOk(res))
+};
   
     getProfile() {
       return fetch(`${this._baseUrl}/users/me`, {
@@ -44,7 +70,7 @@ class Api {
         body: JSON.stringify(values)
       })
       .then(res => this._isOk(res))
-      .catch(err => console.log(err))
+      // .catch(err => console.log(err))
     };
   
     saveCard(card) {
