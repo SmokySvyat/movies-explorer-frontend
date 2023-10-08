@@ -44,9 +44,9 @@ function Movies ({
 
   function getInitialVisibleCards() {
     const screenWidth = window.innerWidth;
-    if (screenWidth >= 840) {
+    if (screenWidth >= 1222) {
       return 12;
-    } else if (screenWidth >= 641) {
+    } else if (screenWidth >= 734) {
       return 8;
     } else {
       return 5;
@@ -54,9 +54,9 @@ function Movies ({
   }
   const handleShowMoreClick = () => {
     const screenWidth = window.innerWidth;
-    if (screenWidth >= 840) {
+    if (screenWidth >= 1222) {
       setVisibleCards((prevVisibleCards) => prevVisibleCards + 3);
-    } else if (screenWidth >= 320) {
+    } else if (screenWidth >= 734) {
       setVisibleCards((prevVisibleCards) => prevVisibleCards + 2);
     } else {
       setVisibleCards((prevVisibleCards) => prevVisibleCards + 2);
