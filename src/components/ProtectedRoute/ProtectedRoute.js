@@ -1,12 +1,19 @@
 import React from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 
-const ProtectedRoute = ({ element: Component, ...props }) => {
-  return props.loggedIn ? (
-    <Component {...props} />
-  ) : (
-    <Navigate to="/" replace />
-  );
+export const ProtectedRoute = ({ children, isLoggedIn }) => {
+  let location = useLocation();
+if (!isLoggedIn) {
+  return <Navigate to='/' state={{ from: location }} replace />;
+}
+return children;
 };
 
-export default ProtectedRoute;
+export const ProtectedAuthRoute = ({ element: Component, ...props }) => {
+  const path = localStorage.getItem('currentPath')
+  return !props.loggedIn ? (
+    <Component {...props} />
+  ) : (
+    <Navigate to={path} replace />
+  );
+};

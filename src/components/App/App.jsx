@@ -1,6 +1,6 @@
 import './App.css';
-import { Routes, Route, useNavigate } from 'react-router-dom';
-import { useState,useEffect } from 'react';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import { useState,useEffect, useCallback } from 'react';
 
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import NotFound from '../NotFound/NotFound';
@@ -12,7 +12,7 @@ import Profile from '../Profile/Profile';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
-import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
+import { ProtectedRoute, ProtectedAuthRoute } from '../ProtectedRoute/ProtectedRoute'
 
 import { apiMovies } from '../../utils/MoviesApi';
 import {api} from '../../utils/MainApi'
@@ -20,7 +20,9 @@ import * as auth from '../../utils/Auth'
 
 function App() {
   const navigate = useNavigate();
-  const [currentUser, setCurrentUser] = useState({});
+  const location = useLocation();
+  const currentPath = location.pathname;
+  const [currentUser, setCurrentUser] = useState(localStorage.getItem('currentUser') ?? {});
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -40,31 +42,29 @@ function App() {
       .catch((err) => console.log(err));
   };
 
-  const checkToken = () => {
-    const jwt = localStorage.getItem("jwt");
-    if (jwt) {
+  const checkToken = useCallback(() => {
+    // setIsLoading(true)
+    if(localStorage.getItem('jwt')) {
+    let jwt = localStorage.getItem("jwt");
+    // console.log(isLoading)
       api
         .getProfile()
         .then((res) => {
-          if (res) {
             setLoggedIn(true);
-            getUser();
+            // getUser();
+            setCurrentUser(res)
             getSavedMovies();
-          }
+            navigate(currentPath, {replace:true})
         })
         .catch((err) => console.log(err))
         .finally(() => {
           setIsLoading(false);
         });
-      return;
     }
-    setIsLoading(false);
-  };
+  }, []);
   useEffect(() => {
     checkToken();
-    setSuccessMessage('');
-    setErrorMessage('');
-  }, []);
+  }, [isLoggedIn]);
 
   const handleRegister = ({ name, email, password }) => {
     setIsLoading(true);
@@ -83,6 +83,9 @@ function App() {
   };
 
   const handleLogin = ({ email,password }) => {
+    if (!email || !password) {
+      return;
+    }
     setIsLoading(true)
     setErrorLoginMessage('')
     auth.authorize(email, password)
@@ -91,12 +94,11 @@ function App() {
           localStorage.setItem("jwt", data.token);
           setLoggedIn(true);
           checkToken()
-          setCurrentUser(data)
-          navigate("/movies");
+          navigate('/movies', {replace:true});
         }
       })
       .catch((err) => {
-        // console.log(err);
+        console.log(err);
         setErrorLoginMessage(err.message);
       })
       .finally(() => {
@@ -105,13 +107,15 @@ function App() {
   };
 
   const handleUpdateUser = ({ id, name, email }) => {
+    console.log(`handle update 1 ${console.log(currentUser)}`)
     setIsLoading(true);
     api
       .patchProfile({ id, name, email })
       .then((res) => {
-        setCurrentUser(res);
         setSuccessMessage('Профиль успешно обновлен');
         setErrorMessage('');
+        console.log(`handle update 2 ${console.log(currentUser)}`)
+        return setCurrentUser(res);
       })
       .catch((err) => {
         console.log(err.message);
@@ -205,7 +209,7 @@ function App() {
       .catch((err) => console.log(err));
   };
   return (
-    <CurrentUserContext.Provider value={currentUser}>
+    <CurrentUserContext.Provider value={{currentUser, setCurrentUser}}>
       <div className='app'>
         <Routes>
           <Route path="*" element={<NotFound />} />
@@ -226,19 +230,20 @@ function App() {
               path="/movies"
               element={
                 <>
-                  <Header
-                    loggedIn = {isLoggedIn}
-                  />
-                  <ProtectedRoute
-                    element={Movies}
-                    loggedIn={isLoggedIn}
-                    currentUser={currentUser}
-                    movies={allCards}
-                    savedMovies={savedMovies}
-                    onSave={handleSaveMovie}
-                    getMovies={getCards}
-              />
-                  <Footer />
+                  <ProtectedRoute isLoggedIn={isLoggedIn}>
+                    <Header
+                      loggedIn = {isLoggedIn}
+                    />
+                    <Movies
+                      loggedIn={isLoggedIn}
+                      currentUser={currentUser}
+                      movies={allCards}
+                      savedMovies={savedMovies}
+                      onSave={handleSaveMovie}
+                      getMovies={getCards}
+                    />
+                    <Footer />
+                  </ProtectedRoute>
                 </>
               }
           />
@@ -246,18 +251,19 @@ function App() {
               path="/saved-movies"
               element={
                 <>
-                  <Header
-                    loggedIn = {isLoggedIn}
-                  />
-                  <ProtectedRoute
-                    element={SavedMovies}
-                    movies={savedMovies}
-                    onDelete={handleDeleteMovie}
-                    loggedIn={isLoggedIn}
-                    currentUser={currentUser}
-                    getSavedMovies={getSavedMovies}
-                  />
+                  <ProtectedRoute isLoggedIn={isLoggedIn}>
+                    <Header
+                      loggedIn = {isLoggedIn}
+                    />
+                    <SavedMovies
+                      movies={savedMovies}
+                      onDelete={handleDeleteMovie}
+                      loggedIn={isLoggedIn}
+                      currentUser={currentUser}
+                      getSavedMovies={getSavedMovies}
+                    />
                   <Footer />
+                </ProtectedRoute>
                 </>
               }
           />
@@ -265,12 +271,12 @@ function App() {
               path="/profile"
               element={
                 <>
+                  <ProtectedRoute isLoggedIn={isLoggedIn}>
                   <Header
                     loggedIn = {isLoggedIn}
                   />
-                  <ProtectedRoute
+                  <Profile
                     loggedIn={isLoggedIn}
-                    element={Profile}
                     onUpdateUser={handleUpdateUser}
                     handleSignOut={handleSignOut}
                     errorMessage={errorMessage}
@@ -279,6 +285,7 @@ function App() {
                     setErrorMessage={setErrorMessage}
                     setSuccessMessage={setSuccessMessage}
                   />
+                  </ProtectedRoute>
                 </>
               }
           />
@@ -286,11 +293,14 @@ function App() {
             path="/signup"
             element={
               <>
-                <Register
+                <ProtectedAuthRoute
+                  loggedIn={isLoggedIn}
+                  element={Register}
                   handleRegister={handleRegister}
                   title="Добро пожаловать!"
                   btnValue="Зарегистрироваться"
                   errorMessage={errorRegisterMessage}
+                  setErrorMessage={setRegisterErrorMessage}
                   isLoading={isLoading}
                 />
               </>
@@ -300,7 +310,9 @@ function App() {
             path="/signin"
             element={
               <>
-                <Login
+                <ProtectedAuthRoute
+                  loggedIn={isLoggedIn}
+                  element={Login}
                   handleLogin={handleLogin}
                   title="Рады видеть!"
                   btnValue="Войти"

@@ -2,9 +2,9 @@ import './Register.css'
 import React from "react";
 import { Link } from "react-router-dom"
 import logo from "../../images/logo.svg"
-import { NAME_REGEXP, EMAIL_REGEXP, PASSWORD_REGEXP } from '../../utils/constants';
+import { NAME_REGEXP, EMAIL_REGEXP, PASSWORD_REGEXP, ERROR_NAME_PATTERN, ERROR_EMAIL_PATTERN, ERROR_PASSWORD_PATTERN } from '../../utils/constants';
 
-function Register ({title, btnValue, handleRegister, errorMessage, isLoading}) {
+function Register ({title, btnValue, handleRegister, errorMessage, setErrorMessage, isLoading}) {
     const [formValue, setFormValue] = React.useState({
         name: "",
         email: "",
@@ -22,12 +22,18 @@ function Register ({title, btnValue, handleRegister, errorMessage, isLoading}) {
       });
     };
 
-    const isNameValid = () => { return name.trim().length >= 2 && name.trim().length <= 20 && NAME_REGEXP.test(name.trim())};
-    const isEmailValid = () => { return EMAIL_REGEXP.test(email.trim()) && email.trim().length >= 2 && email.trim().length <= 20 };
-    const isPasswordValid = () => { return PASSWORD_REGEXP.test(password.trim()) && password.trim().length >= 8 };
+    const isNameValid = () => {
+        return name.trim().length >= 2 && name.trim().length <= 20 && NAME_REGEXP.test(name.trim())};
+    const isEmailValid = () => {
+        return EMAIL_REGEXP.test(email.trim()) && email.trim().length >= 2 && email.trim().length <= 20 };
+    const isPasswordValid = () => {
+        return PASSWORD_REGEXP.test(password.trim()) && password.trim().length >= 8 };
     const nameClassName = isNameValid() ? 'form__input' : 'form__input form__input_on-error';
     const emailClassName = isEmailValid() ? 'form__input' : 'form__input form__input_on-error';
     const passwordClassName = isPasswordValid() ? 'form__input' : 'form__input form__input_on-error';
+    // setErrorMessage(isNameValid() || name.trim() === '' ? '' : ERROR_NAME_PATTERN)
+    // setErrorMessage(isEmailValid() || email.trim() === '' ? '' : ERROR_EMAIL_PATTERN)
+    // setErrorMessage(isPasswordValid() || password.trim() === '' ? '' : ERROR_PASSWORD_PATTERN)
 
 
 

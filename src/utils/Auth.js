@@ -4,6 +4,7 @@ const isOk = (res) => {
   if (res.ok) {
     return res.json();
   }
+  console.log(res);
   return res.json().then((res) => {
     throw res;
   });
@@ -19,7 +20,6 @@ export const register = ({ name, email, password }) => {
     body: JSON.stringify({ name, email, password }),
   })
     .then((res) => isOk(res))
-    .catch(err => console.log(err))
 };
 
 export const authorize = (email, password) => {

@@ -7,7 +7,7 @@ function Profile (props) {
     React.useEffect(() => {
         localStorage.setItem("currentPath", "/profile");
       }, []);
-    const currentUser = React.useContext(CurrentUserContext);
+    const {currentUser} = React.useContext(CurrentUserContext);
     const [value, setValue] = React.useState({
         name: currentUser.name,
         email: currentUser.email,
@@ -15,17 +15,34 @@ function Profile (props) {
     const { name, email } = value;
     const [isFormValid, setIsFormValid] = React.useState(false);
     const [isFormEmpty, setIsFormEmpty] = React.useState(true);
-
+    const [activateForm, setActivateForm] = React.useState(false);
     
+    function handleBtnClick () {
+        setActivateForm(true)
+    }
+
+    const btn = () => {
+        if (activateForm) {
+            return (
+                <button className='profile__btn' type='button' disabled={props.isLoading} onClick={handleBtnClick()}>Редактировать</button>
+            )
+        } else {
+            return (
+            <button className='profile__btn' type='submit' disabled={isBtnDisabled()}>Сохранить</button>
+            )
+        }
+    }
     
     function handleChange(e) {
-        setValue({ ...value, [e.target.name]: e.target.value });
-        props.setSuccessMessage('');
-        props.setErrorMessage('');
+        setValue({ ...value, [e.target.name]: e.target.value })
+        props.setSuccessMessage('')
+        props.setErrorMessage('')
     }
 
     function handleSubmit(e) {
         e.preventDefault();
+        setActivateForm(false)
+        console.log(`handle submit ${currentUser}`)
         props.onUpdateUser(value)
     }
 
@@ -40,7 +57,7 @@ function Profile (props) {
         const isInputValid = () => {
             return isNameValid() && isEmailValid() && isChanged();
         };
-        setIsFormValid(isInputValid());
+        setIsFormValid(isInputValid() && isChanged());
         setIsFormEmpty(
           name.trim() === "" || email.trim() === ""
         );
@@ -55,6 +72,12 @@ function Profile (props) {
         // console.log(`is changed ${isChanged()}`)
         return props.isLoading || isFormEmpty || !isFormValid
     }
+    React.useEffect(() => {
+        setValue({
+          name: currentUser.name,
+          email: currentUser.email,
+        });
+      }, [currentUser]);
 
     return (
         <main className='profile section'>
@@ -94,7 +117,9 @@ function Profile (props) {
                 </div>
                 <span className={tipsClassName}>{message}</span>
                 <div className='profile__controls'>
-                    <button className='profile__btn' type='submit' disabled={isBtnDisabled()}>Редактировать</button>
+                    {btn()}
+                    
+                    
                     <button className='profile__btn signout'  type='button' onClick={props.handleSignOut} disabled={props.isLoading}>Выйти из аккаунта</button>
                 </div>
             </form>
