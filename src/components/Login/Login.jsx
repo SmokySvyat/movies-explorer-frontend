@@ -2,9 +2,24 @@ import './Login.css'
 import React from "react";
 import { Link } from "react-router-dom"
 import logo from "../../images/logo.svg"
-import { EMAIL_LENGTH_MAX, EMAIL_LENGTH_MIN, EMAIL_REGEXP, PASSWORD_LENGTH_MIN, PASSWORD_REGEXP } from '../../utils/constants';
+import {
+  EMAIL_LENGTH_MAX,
+  EMAIL_LENGTH_MIN,
+  EMAIL_REGEXP,
+  PASSWORD_LENGTH_MIN,
+  PASSWORD_REGEXP,
+  ERROR_EMAIL_PATTERN,
+  ERROR_PASSWORD_PATTERN,
+} from '../../utils/constants';
 
-function Login ({ title, btnValue, handleLogin, errorMessage, isLoading }) {
+function Login ({
+    title,
+    btnValue,
+    handleLogin,
+    errorMessage,
+    setErrorMessage,
+    isLoading
+}) {
     const [formValue, setFormValue] = React.useState({
         email: "",
         password: "",
@@ -12,13 +27,16 @@ function Login ({ title, btnValue, handleLogin, errorMessage, isLoading }) {
     const { password, email } = formValue;
     const [isFormValid, setIsFormValid] = React.useState(false);
     const [isFormEmpty, setIsFormEmpty] = React.useState(true);
-    
+    const [emailClassName, setEmailClassName] = React.useState('form__input');
+    const [passwordClassName, setPasswordClassName] = React.useState('form__input');
+
     const handleChange = (e) => {
       const { name, value } = e.target;
       setFormValue({
         ...formValue,
         [name]: value,
       });
+      handleToggleInputsClassNameAndErrors(name)
     };
     
     const handleSubmit = (e) => {
@@ -26,16 +44,45 @@ function Login ({ title, btnValue, handleLogin, errorMessage, isLoading }) {
       handleLogin({ email, password });
     };
 
-    const isEmailValid = () => { return EMAIL_REGEXP.test(email.trim()) && email.trim().length >= EMAIL_LENGTH_MIN && email.trim().length <= EMAIL_LENGTH_MAX };
-    const isPasswordValid = () => { return PASSWORD_REGEXP.test(password.trim()) && password.trim().length >= PASSWORD_LENGTH_MIN };
-    const emailClassName = isEmailValid() ? 'form__input' : 'form__input form__input_on-error';
-    const passwordClassName = isPasswordValid() ? 'form__input' : 'form__input form__input_on-error';
+    const isEmailValid = () => {
+      return (
+        EMAIL_REGEXP.test(email.trim())
+          &&
+        email.trim().length >= EMAIL_LENGTH_MIN
+          &&
+        email.trim().length <= EMAIL_LENGTH_MAX
+      )
+    };
+    const isPasswordValid = () => {
+      return (
+        PASSWORD_REGEXP.test(password.trim())
+          &&
+        password.trim().length >= PASSWORD_LENGTH_MIN
+      )
+    };
+    const handleToggleInputsClassNameAndErrors = (inputName) => {
+      switch (inputName) {
+        case 'email':
+          setEmailClassName((isEmailValid() || inputName.trim() === "" ) ?
+            'form__input' : 'form__input form__input_on-error');
+          !isEmailValid(inputName) ? setErrorMessage(ERROR_EMAIL_PATTERN) : setErrorMessage('');
+          break;
+        case 'password':
+          setPasswordClassName((isPasswordValid() || inputName.trim() === "" ) ?
+            'form__input' : 'form__input form__input_on-error');
+          !isPasswordValid(inputName) ? setErrorMessage(ERROR_PASSWORD_PATTERN) : setErrorMessage('');
+          break;
+        default:
+          setPasswordClassName('form__input');
+          setEmailClassName('form__input');
+          setErrorMessage('');
+      }
+    }
 
     React.useEffect(() => {
         const isInputValid = () => {
             return isEmailValid() && isPasswordValid();
-      };
-    
+      };    
       setIsFormValid(isInputValid());
       setIsFormEmpty(
         email.trim() === "" || password.trim() === ""

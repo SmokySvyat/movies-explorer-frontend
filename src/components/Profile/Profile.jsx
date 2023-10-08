@@ -1,7 +1,14 @@
 import './Profile.css'
 import React from "react";
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
-import { NAME_REGEXP, EMAIL_REGEXP, EMAIL_LENGTH_MIN, EMAIL_LENGTH_MAX, LENGTH_MIN, LENGTH_MAX } from '../../utils/constants';
+import {
+    NAME_REGEXP,
+    EMAIL_REGEXP,
+    EMAIL_LENGTH_MIN,
+    EMAIL_LENGTH_MAX,
+    LENGTH_MIN,
+    LENGTH_MAX
+} from '../../utils/constants';
 
 function Profile (props) {
     React.useEffect(() => {
@@ -16,8 +23,11 @@ function Profile (props) {
     const [isFormValid, setIsFormValid] = React.useState(false);
     const [isFormEmpty, setIsFormEmpty] = React.useState(true);    
     
-    function handleChange(e) {
-        setValue({ ...value, [e.target.name]: e.target.value })
+    const handleChange = (e) => {
+        setValue({
+            ...value,
+            [e.target.name]: e.target.value }
+            )
         props.setSuccessMessage('')
         props.setErrorMessage('')
     }
@@ -28,13 +38,43 @@ function Profile (props) {
         setIsFormValid(false)
     }
 
-    const isChanged = () => { return value.name !== currentUser.name || value.email !== currentUser.email;}
-    const isNameValid = () => { return name.trim().length >= LENGTH_MIN && name.trim().length <= LENGTH_MAX && NAME_REGEXP.test(name.trim())};
-    const isEmailValid = () => { return EMAIL_REGEXP.test(email.trim()) && email.trim().length >= EMAIL_LENGTH_MIN && email.trim().length <= EMAIL_LENGTH_MAX };
-    const nameClassName = isNameValid() ? 'profile__input' : 'profile__input profile__input_on-error';
-    const emailClassName = isEmailValid() ? 'profile__input' : 'profile__input profile__input_on-error';
-    const tipsClassName = props.errorMessage ? 'profile__tips profile__tips_error' : 'profile__tips profile__tips_ok'
+    const isChanged = () => {
+        return (
+            value.name !== currentUser.name
+                ||
+            value.email !== currentUser.email
+        )
+    };
+    const isNameValid = () => {
+        return (
+            name.trim().length >= LENGTH_MIN
+                &&
+            name.trim().length <= LENGTH_MAX
+                &&
+            NAME_REGEXP.test(name.trim())
+        )
+    };
+    const isEmailValid = () => {
+        return (
+            EMAIL_REGEXP.test(email.trim())
+                &&
+            email.trim().length >= EMAIL_LENGTH_MIN
+                &&
+            email.trim().length <= EMAIL_LENGTH_MAX
+        )
+    };
+
+    const nameClassName = isNameValid() ?
+        'profile__input' : 'profile__input profile__input_on-error';
+    const emailClassName = isEmailValid() ?
+        'profile__input' : 'profile__input profile__input_on-error';
+    const tipsClassName = props.errorMessage ?
+        'profile__tips profile__tips_error' : 'profile__tips profile__tips_ok'
+
     const message = props.errorMessage ? props.errorMessage : props.successMessage;
+    const isBtnDisabled = () => {
+        return props.isLoading || isFormEmpty || !isFormValid
+    }
     
     React.useEffect(() => {
         const isInputValid = () => {
@@ -48,9 +88,6 @@ function Profile (props) {
         );
       }, [name, email]);
       
-    const isBtnDisabled = () => {
-        return props.isLoading || isFormEmpty || !isFormValid
-    }
     React.useEffect(() => {
         setValue({
           name: currentUser.name,
@@ -96,8 +133,19 @@ function Profile (props) {
                 </div>
                 <span className={tipsClassName}>{message}</span>
                 <div className='profile__controls'>                    
-                <button className='profile__btn' type='submit' disabled={isBtnDisabled()}>Редактировать</button>
-                    <button className='profile__btn signout'  type='button' onClick={props.handleSignOut} disabled={props.isLoading}>Выйти из аккаунта</button>
+                    <button
+                        className='profile__btn'
+                        type='submit'
+                        disabled={isBtnDisabled()}>
+                            Редактировать
+                    </button>
+                    <button
+                        className='profile__btn signout'
+                        type='button'
+                        onClick={props.handleSignOut}
+                        disabled={props.isLoading}>
+                            Выйти из аккаунта
+                    </button>
                 </div>
             </form>
         </main>

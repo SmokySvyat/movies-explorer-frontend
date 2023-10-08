@@ -2,9 +2,28 @@ import './Register.css'
 import React from "react";
 import { Link } from "react-router-dom"
 import logo from "../../images/logo.svg"
-import { NAME_REGEXP, EMAIL_REGEXP, PASSWORD_REGEXP, ERROR_NAME_PATTERN, ERROR_EMAIL_PATTERN, ERROR_PASSWORD_PATTERN, LENGTH_MIN, LENGTH_MAX, PASSWORD_LENGTH_MIN, EMAIL_LENGTH_MIN, EMAIL_LENGTH_MAX } from '../../utils/constants';
+import {
+    NAME_REGEXP,
+    EMAIL_REGEXP,
+    PASSWORD_REGEXP,
+    ERROR_NAME_PATTERN,
+    ERROR_EMAIL_PATTERN,
+    ERROR_PASSWORD_PATTERN,
+    LENGTH_MIN,
+    LENGTH_MAX,
+    PASSWORD_LENGTH_MIN,
+    EMAIL_LENGTH_MIN,
+    EMAIL_LENGTH_MAX
+} from '../../utils/constants';
 
-function Register ({title, btnValue, handleRegister, errorMessage, setErrorMessage, isLoading}) {
+function Register ({
+    title,
+    btnValue,
+    handleRegister,
+    errorMessage,
+    setErrorMessage,
+    isLoading
+}) {
     const [formValue, setFormValue] = React.useState({
         name: "",
         email: "",
@@ -13,6 +32,9 @@ function Register ({title, btnValue, handleRegister, errorMessage, setErrorMessa
     const { name, password, email } = formValue;
     const [isFormValid, setIsFormValid] = React.useState(false);
     const [isFormEmpty, setIsFormEmpty] = React.useState(true);
+    const [nameClassName, setNameClassName] = React.useState('form__input');
+    const [emailClassName, setEmailClassName] = React.useState('form__input');
+    const [passwordClassName, setPasswordClassName] = React.useState('form__input');
 
     const handleChange = (e) => {
       const { name, value } = e.target;
@@ -20,32 +42,66 @@ function Register ({title, btnValue, handleRegister, errorMessage, setErrorMessa
         ...formValue,
         [name]: value,
       });
+      handleToggleInputsClassNameAndErrors(name);
     };
-
-    const isNameValid = () => {
-        return name.trim().length >= LENGTH_MIN && name.trim().length <= LENGTH_MAX && NAME_REGEXP.test(name.trim())};
-    const isEmailValid = () => {
-        return EMAIL_REGEXP.test(email.trim()) && email.trim().length >= EMAIL_LENGTH_MIN && email.trim().length <= EMAIL_LENGTH_MAX };
-    const isPasswordValid = () => {
-        return PASSWORD_REGEXP.test(password.trim()) && password.trim().length >= PASSWORD_LENGTH_MIN };
-    const nameClassName = isNameValid() ? 'form__input' : 'form__input form__input_on-error';
-    const emailClassName = isEmailValid() ? 'form__input' : 'form__input form__input_on-error';
-    const passwordClassName = isPasswordValid() ? 'form__input' : 'form__input form__input_on-error';
-    // setErrorMessage(isNameValid() || name.trim() === '' ? '' : ERROR_NAME_PATTERN)
-    // setErrorMessage(isEmailValid() || email.trim() === '' ? '' : ERROR_EMAIL_PATTERN)
-    // setErrorMessage(isPasswordValid() || password.trim() === '' ? '' : ERROR_PASSWORD_PATTERN)
-
-
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        handleRegister({ name, password, email });
+        handleRegister(formValue);
     };
 
+    const isNameValid = () => {
+        return (
+            name.trim().length >= LENGTH_MIN
+                &&
+            name.trim().length <= LENGTH_MAX
+                &&
+            NAME_REGEXP.test(name.trim())
+        )
+    }
+    const isEmailValid = () => {
+        return (
+            EMAIL_REGEXP.test(email.trim())
+                &&
+            email.trim().length >= EMAIL_LENGTH_MIN
+                &&
+            email.trim().length <= EMAIL_LENGTH_MAX
+        )
+    };
+    const isPasswordValid = () => {
+        return (
+            PASSWORD_REGEXP.test(password.trim())
+                &&
+            password.trim().length >= PASSWORD_LENGTH_MIN
+        )
+    };
+
+    const handleToggleInputsClassNameAndErrors = (inputName) => {
+        switch (inputName) {
+          case 'name':
+            setNameClassName((isNameValid() || inputName.trim() === "" ) ?
+            'form__input' : 'form__input form__input_on-error');
+            !isNameValid('name') ? setErrorMessage(ERROR_NAME_PATTERN) : setErrorMessage('');
+            break;
+          case 'email':
+            setEmailClassName((isEmailValid() || inputName.trim() === "" ) ?
+              'form__input' : 'form__input form__input_on-error');
+            !isEmailValid(inputName) ? setErrorMessage(ERROR_EMAIL_PATTERN) : setErrorMessage('');
+            break;
+          case 'password':
+            setPasswordClassName((isPasswordValid() || inputName.trim() === "" ) ?
+              'form__input' : 'form__input form__input_on-error');
+            !isPasswordValid(inputName) ? setErrorMessage(ERROR_PASSWORD_PATTERN) : setErrorMessage('');
+            break;
+          default:
+            setNameClassName('form__input');
+            setPasswordClassName('form__input');
+            setEmailClassName('form__input');
+            setErrorMessage('');
+        }
+    }
+
     React.useEffect(() => {
-        // console.log(`input name ${isNameValid()}`)
-        // console.log(`input email ${isEmailValid()}`)
-        // console.log(`input password ${isPasswordValid()}`)
         const isInputValid = () => {
             return isNameValid() && isEmailValid() && isPasswordValid();
       };
@@ -57,9 +113,6 @@ function Register ({title, btnValue, handleRegister, errorMessage, setErrorMessa
     }, [name, email, password]);
 
     const isBtnDisabled = () => {
-        // console.log(`is form valid ${isFormValid}`)
-        // console.log(`is loading ${isLoading}`)
-        // console.log(`is form empty ${isFormEmpty}`)
         return isLoading || isFormEmpty || !isFormValid
     }
 

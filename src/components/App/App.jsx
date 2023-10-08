@@ -21,6 +21,7 @@ function App() {
   const navigate = useNavigate();
   const location = useLocation();
   const currentPath = location.pathname;
+
   const [currentUser, setCurrentUser] = useState(localStorage.getItem('currentUser') ?? {});
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -31,6 +32,54 @@ function App() {
   const [errorRegisterMessage, setRegisterErrorMessage] = useState("");
   const [errorLoginMessage, setErrorLoginMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+
+  const handleRegister = ({ name, email, password }) => {
+    setIsLoading(true);
+    setRegisterErrorMessage('')
+    api
+      .register({ name, email, password })
+      .then(() => {
+        handleLogin({ email,password })
+        navigate("/movies");
+      })
+      .catch((err) => {
+        setRegisterErrorMessage(err.message);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+    };
+    
+    const handleLogin = ({ email,password }) => {
+    if (!email || !password) {
+      return;
+    }
+    setIsLoading(true)
+    setErrorLoginMessage('')
+    api
+      .authorize(email, password)
+      .then((res) => {
+        console.log(res)
+          localStorage.setItem("jwt", res.token);
+          setLoggedIn(true);
+          checkToken()
+          navigate('/movies', {replace:true});
+        
+        })
+        .catch((err) => {
+          console.log(err);
+          setErrorLoginMessage(err.message);
+        })
+        .finally(() => {
+          setIsLoading(false);
+      });
+  };
+  
+  const handleSignOut = () => {
+    localStorage.clear();
+    setLoggedIn(false);
+    navigate('/');
+  };
 
   const getUser = () => {
     api
@@ -44,8 +93,6 @@ function App() {
   const checkToken = useCallback(() => {
     // setIsLoading(true)
     if(localStorage.getItem('jwt')) {
-    let jwt = localStorage.getItem("jwt");
-    // console.log(isLoading)
       api
         .getProfile()
         .then((res) => {
@@ -65,47 +112,6 @@ function App() {
     checkToken();
   }, [isLoggedIn]);
 
-  const handleRegister = ({ name, email, password }) => {
-    setIsLoading(true);
-    setRegisterErrorMessage('')
-    api
-      .register({ name, email, password })
-      .then(() => {
-        handleLogin({ email,password })
-        navigate("/movies");
-      })
-      .catch((err) => {
-        setRegisterErrorMessage(err.message);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  };
-
-  const handleLogin = ({ email,password }) => {
-    if (!email || !password) {
-      return;
-    }
-    setIsLoading(true)
-    setErrorLoginMessage('')
-    api
-      .authorize(email, password)
-      .then((res) => {
-        console.log(res)
-          localStorage.setItem("jwt", res.token);
-          setLoggedIn(true);
-          checkToken()
-          navigate('/movies', {replace:true});
-        
-      })
-      .catch((err) => {
-        console.log(err);
-        setErrorLoginMessage(err.message);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  };
 
   const handleUpdateUser = ({ id, name, email }, next) => {
     setIsLoading(true);
@@ -126,11 +132,6 @@ function App() {
       });
   };
 
-  const handleSignOut = () => {
-    localStorage.clear();
-    setLoggedIn(false);
-    navigate('/');
-  };
 
   const getCards = () => {
     setIsLoading(true)
@@ -316,6 +317,7 @@ function App() {
                   title="Рады видеть!"
                   btnValue="Войти"
                   errorMessage={errorLoginMessage}
+                  setErrorMessage={setErrorLoginMessage}
                   isLoading={isLoading}
                 />
               </>
