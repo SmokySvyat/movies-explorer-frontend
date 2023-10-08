@@ -3,6 +3,16 @@ import { useEffect, useState } from 'react';
 import MoviesCardList from './MoviesCardList/MoviesCardList'
 import SearchForm from '../Movies/SearchForm/SearchForm'
 import Preloader from './Preloader/Preloader';
+import {
+  CARDS_TO_ADD_DESKTOP,
+  CARDS_TO_ADD_MOBILE,
+  CARDS_TO_RENDER_DESKTOP,
+  CARDS_TO_RENDER_MOBILE,
+  CARDS_TO_RENDER_TABLET,
+  DESKTOP_RES,
+  DURATION_SHORT,
+  MOBILE_RES
+} from '../../utils/constants';
 
 function Movies ({
   movies,
@@ -44,22 +54,22 @@ function Movies ({
 
   function getInitialVisibleCards() {
     const screenWidth = window.innerWidth;
-    if (screenWidth >= 1222) {
-      return 12;
-    } else if (screenWidth >= 734) {
-      return 8;
+    if (screenWidth >= DESKTOP_RES) {
+      return CARDS_TO_RENDER_DESKTOP;
+    } else if (screenWidth >= MOBILE_RES) {
+      return CARDS_TO_RENDER_TABLET;
     } else {
-      return 5;
+      return CARDS_TO_RENDER_MOBILE;
     }
   }
   const handleShowMoreClick = () => {
     const screenWidth = window.innerWidth;
-    if (screenWidth >= 1222) {
-      setVisibleCards((prevVisibleCards) => prevVisibleCards + 3);
-    } else if (screenWidth >= 734) {
-      setVisibleCards((prevVisibleCards) => prevVisibleCards + 2);
+    if (screenWidth >= DESKTOP_RES) {
+      setVisibleCards((prevVisibleCards) => prevVisibleCards + CARDS_TO_ADD_DESKTOP);
+    } else if (screenWidth >= MOBILE_RES) {
+      setVisibleCards((prevVisibleCards) => prevVisibleCards + CARDS_TO_ADD_MOBILE);
     } else {
-      setVisibleCards((prevVisibleCards) => prevVisibleCards + 2);
+      setVisibleCards((prevVisibleCards) => prevVisibleCards + CARDS_TO_ADD_MOBILE);
     }
   };
 
@@ -80,7 +90,7 @@ function Movies ({
     let filteredMovies = movies;
 
     if (isShortFilm) {
-      filteredMovies = filteredMovies.filter((movie) => movie.duration <= 40);
+      filteredMovies = filteredMovies.filter((movie) => movie.duration <= DURATION_SHORT);
     }
 
     const filteredResults = filteredMovies.filter((movie) => {
@@ -109,7 +119,7 @@ function Movies ({
     let searchResults;
 
     if (isShortFilm) {
-      filteredMovies = movies.filter((movie) => movie.duration <= 40);
+      filteredMovies = movies.filter((movie) => movie.duration <= DURATION_SHORT);
       searchResults = filteredMovies.filter((movie) => {
         return (
           movie.nameRU.toLowerCase().includes(query.toLowerCase()) ||

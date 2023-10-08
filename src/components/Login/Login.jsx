@@ -2,7 +2,7 @@ import './Login.css'
 import React from "react";
 import { Link } from "react-router-dom"
 import logo from "../../images/logo.svg"
-import { EMAIL_REGEXP, PASSWORD_REGEXP } from '../../utils/constants';
+import { EMAIL_LENGTH_MAX, EMAIL_LENGTH_MIN, EMAIL_REGEXP, PASSWORD_LENGTH_MIN, PASSWORD_REGEXP } from '../../utils/constants';
 
 function Login ({ title, btnValue, handleLogin, errorMessage, isLoading }) {
     const [formValue, setFormValue] = React.useState({
@@ -26,8 +26,8 @@ function Login ({ title, btnValue, handleLogin, errorMessage, isLoading }) {
       handleLogin({ email, password });
     };
 
-    const isEmailValid = () => { return EMAIL_REGEXP.test(email.trim()) && email.trim().length >= 2 && email.trim().length <= 20 };
-    const isPasswordValid = () => { return PASSWORD_REGEXP.test(password.trim()) && password.trim().length >= 8 };
+    const isEmailValid = () => { return EMAIL_REGEXP.test(email.trim()) && email.trim().length >= EMAIL_LENGTH_MIN && email.trim().length <= EMAIL_LENGTH_MAX };
+    const isPasswordValid = () => { return PASSWORD_REGEXP.test(password.trim()) && password.trim().length >= PASSWORD_LENGTH_MIN };
     const emailClassName = isEmailValid() ? 'form__input' : 'form__input form__input_on-error';
     const passwordClassName = isPasswordValid() ? 'form__input' : 'form__input form__input_on-error';
 

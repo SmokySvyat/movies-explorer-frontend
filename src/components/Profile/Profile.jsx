@@ -1,7 +1,7 @@
 import './Profile.css'
 import React from "react";
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
-import { NAME_REGEXP, EMAIL_REGEXP } from '../../utils/constants';
+import { NAME_REGEXP, EMAIL_REGEXP, EMAIL_LENGTH_MIN, EMAIL_LENGTH_MAX, LENGTH_MIN, LENGTH_MAX } from '../../utils/constants';
 
 function Profile (props) {
     React.useEffect(() => {
@@ -47,8 +47,8 @@ function Profile (props) {
     }
 
     const isChanged = () => { return value.name !== currentUser.name || value.email !== currentUser.email;}
-    const isNameValid = () => { return name.trim().length >= 2 && name.trim().length <= 20 && NAME_REGEXP.test(name.trim())};
-    const isEmailValid = () => { return EMAIL_REGEXP.test(email.trim()) && email.trim().length >= 2 && email.trim().length <= 200 };
+    const isNameValid = () => { return name.trim().length >= LENGTH_MIN && name.trim().length <= LENGTH_MAX && NAME_REGEXP.test(name.trim())};
+    const isEmailValid = () => { return EMAIL_REGEXP.test(email.trim()) && email.trim().length >= EMAIL_LENGTH_MIN && email.trim().length <= EMAIL_LENGTH_MAX };
     const nameClassName = isNameValid() ? 'profile__input' : 'profile__input profile__input_on-error';
     const emailClassName = isEmailValid() ? 'profile__input' : 'profile__input profile__input_on-error';
     const tipsClassName = props.errorMessage ? 'profile__tips profile__tips_error' : 'profile__tips profile__tips_ok'
