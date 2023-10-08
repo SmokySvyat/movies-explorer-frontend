@@ -14,24 +14,7 @@ function Profile (props) {
     });
     const { name, email } = value;
     const [isFormValid, setIsFormValid] = React.useState(false);
-    const [isFormEmpty, setIsFormEmpty] = React.useState(true);
-    const [activateForm, setActivateForm] = React.useState(false);
-    
-    function handleBtnClick () {
-        setActivateForm(true)
-    }
-
-    const btn = () => {
-        if (activateForm) {
-            return (
-                <button className='profile__btn' type='button' disabled={props.isLoading} onClick={handleBtnClick()}>Редактировать</button>
-            )
-        } else {
-            return (
-            <button className='profile__btn' type='submit' disabled={isBtnDisabled()}>Сохранить</button>
-            )
-        }
-    }
+    const [isFormEmpty, setIsFormEmpty] = React.useState(true);    
     
     function handleChange(e) {
         setValue({ ...value, [e.target.name]: e.target.value })
@@ -41,9 +24,8 @@ function Profile (props) {
 
     function handleSubmit(e) {
         e.preventDefault();
-        setActivateForm(false)
-        // console.log(`handle submit ${currentUser}`)
         props.onUpdateUser(value)
+        setIsFormValid(false)
     }
 
     const isChanged = () => { return value.name !== currentUser.name || value.email !== currentUser.email;}
@@ -53,6 +35,7 @@ function Profile (props) {
     const emailClassName = isEmailValid() ? 'profile__input' : 'profile__input profile__input_on-error';
     const tipsClassName = props.errorMessage ? 'profile__tips profile__tips_error' : 'profile__tips profile__tips_ok'
     const message = props.errorMessage ? props.errorMessage : props.successMessage;
+    
     React.useEffect(() => {
         const isInputValid = () => {
             return isNameValid() && isEmailValid() && isChanged();
@@ -66,12 +49,6 @@ function Profile (props) {
       }, [name, email]);
       
     const isBtnDisabled = () => {
-        // console.log(`*is name valid ${isNameValid()}`)
-        // console.log(`*is email valid ${isEmailValid()}`)
-        // console.log(`is form valid ${isFormValid}`)
-        // console.log(`is loading ${props.isLoading}`)
-        // console.log(`is form empty ${isFormEmpty}`)
-        // console.log(`is changed ${isChanged()}`)
         return props.isLoading || isFormEmpty || !isFormValid
     }
     React.useEffect(() => {
@@ -118,10 +95,8 @@ function Profile (props) {
                     </div>
                 </div>
                 <span className={tipsClassName}>{message}</span>
-                <div className='profile__controls'>
-                    {btn()}
-                    
-                    
+                <div className='profile__controls'>                    
+                <button className='profile__btn' type='submit' disabled={isBtnDisabled()}>Редактировать</button>
                     <button className='profile__btn signout'  type='button' onClick={props.handleSignOut} disabled={props.isLoading}>Выйти из аккаунта</button>
                 </div>
             </form>
