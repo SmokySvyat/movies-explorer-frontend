@@ -1,191 +1,52 @@
-const cards = [
-    {
-        country: 'russia',
-        director: 'yasha',
-        duration: '1ч 20м',
-        year: 2023,
-        description: 'davnim davno, v dalokoy dalokoy galaktike',
-        image: 'https://allbestmovies.ru/uploads/posts/2015-11/1448338367_photo-40191159_389471883.jpg',
-        trailerLink: 'https://www.youtube.com/watch?v=JyUH8Wp40IU',
-        thumbnail: 'https://www.dejurka.ru/wp-content/uploads/2012/05/lord-of-rings.jpg',
-        owner: '',
-        movieId: 65463219,
-        nameRU: 'Поехали',
-        nameEN: 'Priehali',
-    },
-    {
-        country: 'russia',
-        director: 'yasha',
-        duration: '1ч 20м',
-        year: 2023,
-        description: 'davnim davno, v dalokoy dalokoy galaktike',
-        image: 'https://allbestmovies.ru/uploads/posts/2015-11/1448338367_photo-40191159_389471883.jpg',
-        trailerLink: 'https://www.youtube.com/watch?v=JyUH8Wp40IU',
-        thumbnail: 'https://www.dejurka.ru/wp-content/uploads/2012/05/lord-of-rings.jpg',
-        owner: '',
-        movieId: 65483219,
-        nameRU: 'Поехали',
-        nameEN: 'Priehali',
-    },
-    {
-        country: 'russia',
-        director: 'yasha',
-        duration: '1ч 20м',
-        year: 2020,
-        description: 'davnim davno, v dalokoy dalokoy galaktike',
-        image: 'https://allbestmovies.ru/uploads/posts/2015-11/1448338367_photo-40191159_389471883.jpg',
-        trailerLink: 'https://www.youtube.com/watch?v=JyUH8Wp40IU',
-        thumbnail: 'https://www.dejurka.ru/wp-content/uploads/2012/05/lord-of-rings.jpg',
-        owner: '',
-        movieId: 65763219,
-        nameRU: 'Поехали',
-        nameEN: 'Priehali'
-    },
-    {
-        country: 'russia',
-        director: 'yasha',
-        duration: '1ч 20м',
-        year: 2023,
-        description: 'davnim davno, v dalokoy dalokoy galaktike',
-        image: 'https://allbestmovies.ru/uploads/posts/2015-11/1448338367_photo-40191159_389471883.jpg',
-        trailerLink: 'https://www.youtube.com/watch?v=JyUH8Wp40IU',
-        thumbnail: 'https://www.dejurka.ru/wp-content/uploads/2012/05/lord-of-rings.jpg',
-        owner: '',
-        movieId: 65463619,
-        nameRU: 'Поехали',
-        nameEN: 'Priehali'
-    },
-    {
-        country: 'russia',
-        director: 'yasha',
-        duration: '1ч 20м',
-        year: 2123,
-        description: 'davnim davno, v dalokoy dalokoy galaktike',
-        image: 'https://allbestmovies.ru/uploads/posts/2015-11/1448338367_photo-40191159_389471883.jpg',
-        trailerLink: 'https://www.youtube.com/watch?v=JyUH8Wp40IU',
-        thumbnail: 'https://www.dejurka.ru/wp-content/uploads/2012/05/lord-of-rings.jpg',
-        owner: '',
-        movieId: 75463219,
-        nameRU: 'Поехали5',
-        nameEN: 'Priehali'
-    },
-    {
-        country: 'russia',
-        director: 'yasha',
-        duration: '1ч 20м',
-        year: 2023,
-        description: 'davnim davno, v dalokoy dalokoy galaktike',
-        image: 'https://allbestmovies.ru/uploads/posts/2015-11/1448338367_photo-40191159_389471883.jpg',
-        trailerLink: 'https://www.youtube.com/watch?v=JyUH8Wp40IU',
-        thumbnail: 'https://www.dejurka.ru/wp-content/uploads/2012/05/lord-of-rings.jpg',
-        owner: '',
-        movieId: 65489219,
-        nameRU: 'Поехаыапрли',
-        nameEN: 'Priehali',
-    },
-    {
-        country: 'russia',
-        director: 'yasha',
-        duration: '1ч 20м',
-        year: 2023,
-        description: 'davnim davno, v dalokoy dalokoy galaktike',
-        image: 'https://allbestmovies.ru/uploads/posts/2015-11/1448338367_photo-40191159_389471883.jpg',
-        trailerLink: 'https://www.youtube.com/watch?v=JyUH8Wp40IU',
-        thumbnail: 'https://www.dejurka.ru/wp-content/uploads/2012/05/lord-of-rings.jpg',
-        owner: '',
-        movieId: 65463749,
-        nameRU: 'Поехаиииили',
-        nameEN: 'Priehali',
-    },
-    {
-        country: 'russia',
-        director: 'yasha',
-        duration: '1ч 20м',
-        year: 2023,
-        description: 'davnim davno, v dalokoy dalokoy galaktike',
-        image: 'https://allbestmovies.ru/uploads/posts/2015-11/1448338367_photo-40191159_389471883.jpg',
-        trailerLink: 'https://www.youtube.com/watch?v=JyUH8Wp40IU',
-        thumbnail: 'https://www.dejurka.ru/wp-content/uploads/2012/05/lord-of-rings.jpg',
-        owner: '',
-        movieId: 65463299,
-        nameRU: 'Поехали8',
-        nameEN: 'Priehali',
-    },
-    {
-        country: 'russia',
-        director: 'yasha',
-        duration: '1ч 20м',
-        year: 2023,
-        description: 'davnim davno, v dalokoy dalokoy galaktike',
-        image: 'https://allbestmovies.ru/uploads/posts/2015-11/1448338367_photo-40191159_389471883.jpg',
-        trailerLink: 'https://www.youtube.com/watch?v=JyUH8Wp40IU',
-        thumbnail: 'https://www.dejurka.ru/wp-content/uploads/2012/05/lord-of-rings.jpg',
-        owner: '',
-        movieId: 75463289,
-        nameRU: 'Ппрсооехали',
-        nameEN: 'Priehali',
-    },
-    {
-        country: 'russia',
-        director: 'yasha',
-        duration: '1ч 20м',
-        year: 2023,
-        description: 'davnim davno, v dalokoy dalokoy galaktike',
-        image: 'https://allbestmovies.ru/uploads/posts/2015-11/1448338367_photo-40191159_389471883.jpg',
-        trailerLink: 'https://www.youtube.com/watch?v=JyUH8Wp40IU',
-        thumbnail: 'https://www.dejurka.ru/wp-content/uploads/2012/05/lord-of-rings.jpg',
-        owner: '',
-        movieId: 65743219,
-        nameRU: 'Псрпсоехали',
-        nameEN: 'Priehali',
-    },
-    {
-        country: 'russia',
-        director: 'yasha',
-        duration: '1ч 20м',
-        year: 2023,
-        description: 'davnim davno, v dalokoy dalokoy galaktike',
-        image: 'https://allbestmovies.ru/uploads/posts/2015-11/1448338367_photo-40191159_389471883.jpg',
-        trailerLink: 'https://www.youtube.com/watch?v=JyUH8Wp40IU',
-        thumbnail: 'https://www.dejurka.ru/wp-content/uploads/2012/05/lord-of-rings.jpg',
-        owner: '',
-        movieId: 65745219,
-        nameRU: 'Папоехали',
-        nameEN: 'Priehali',
-    },
-    {
-        country: 'russia',
-        director: 'yasha',
-        duration: '1ч 20м',
-        year: 2023,
-        description: 'davnim davno, v dalokoy dalokoy galaktike',
-        image: 'https://allbestmovies.ru/uploads/posts/2015-11/1448338367_photo-40191159_389471883.jpg',
-        trailerLink: 'https://www.youtube.com/watch?v=JyUH8Wp40IU',
-        thumbnail: 'https://www.dejurka.ru/wp-content/uploads/2012/05/lord-of-rings.jpg',
-        owner: '',
-        movieId: 67893219,
-        nameRU: 'Поехалииии12',
-        nameEN: 'Priehali',
-    },
-    {
-        country: 'russia',
-        director: 'yasha',
-        duration: '1ч 20м',
-        year: 2023,
-        description: 'davnim davno, v dalokoy dalokoy galaktike',
-        image: 'https://allbestmovies.ru/uploads/posts/2015-11/1448338367_photo-40191159_389471883.jpg',
-        trailerLink: 'https://www.youtube.com/watch?v=JyUH8Wp40IU',
-        thumbnail: 'https://www.dejurka.ru/wp-content/uploads/2012/05/lord-of-rings.jpg',
-        owner: '',
-        movieId: 6574521912,
-        nameRU: 'Папоехали13',
-        nameEN: 'Priehali',
-    },
-]
+const BASE_MOVIE_URL = 'https://api.nomoreparties.co/beatfilm-movies/'
+const BASE_IMG_URL = 'https://api.nomoreparties.co'
+const BASE_MYAPI_URL = 'https://api.diplom.svyat.nomoredomainsicu.ru'
+// const BASE_MYAPI_URL = 'http://localhost:3000'
+const NAME_REGEXP = /^[-a-zA-ZА-Яа-яЁё\s]+$/
+const EMAIL_REGEXP = /^\S+@\S+\.\S+$/;
+const PASSWORD_REGEXP = /(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}/;
 
-const savedCards = []
+const LENGTH_MIN = 2;
+const LENGTH_MAX = 20;
+const EMAIL_LENGTH_MIN = 8;
+const EMAIL_LENGTH_MAX = 200;
+const PASSWORD_LENGTH_MIN = 8;
+
+const ERROR_NAME_PATTERN = 'В поле "Имя" допускаются: не менее 2 и не более 30 английских или латинских букв, - и пробел';
+const ERROR_EMAIL_PATTERN = 'E-mail введён некорректно'
+const ERROR_PASSWORD_PATTERN = 'Пароль должен быть не короче 8 символов, содержать латинские строчные и заглавные буквы, цифру и символ'
+
+const DESKTOP_RES = 1222;
+const MOBILE_RES = 734;
+const DURATION_SHORT = 40;
+const CARDS_TO_RENDER_DESKTOP = 12;
+const CARDS_TO_RENDER_TABLET = 8;
+const CARDS_TO_RENDER_MOBILE = 5;
+const CARDS_TO_ADD_DESKTOP = 3;
+const CARDS_TO_ADD_MOBILE = 2;
+
 
 module.exports = {
-    savedCards,
-    cards,
+    BASE_MOVIE_URL,
+    BASE_MYAPI_URL,
+    BASE_IMG_URL,
+    NAME_REGEXP,
+    EMAIL_REGEXP,
+    PASSWORD_REGEXP,
+    ERROR_NAME_PATTERN,
+    ERROR_EMAIL_PATTERN,
+    ERROR_PASSWORD_PATTERN,
+    DESKTOP_RES,
+    MOBILE_RES,
+    DURATION_SHORT,
+    CARDS_TO_ADD_DESKTOP,
+    CARDS_TO_ADD_MOBILE,
+    CARDS_TO_RENDER_DESKTOP,
+    CARDS_TO_RENDER_TABLET,
+    CARDS_TO_RENDER_MOBILE,
+    LENGTH_MAX,
+    LENGTH_MIN,
+    EMAIL_LENGTH_MIN,
+    EMAIL_LENGTH_MAX,
+    PASSWORD_LENGTH_MIN,
 }

@@ -76,6 +76,10 @@
   border: 1px solid #000;
 }
 
+.form__input_on-error {
+  border: 1px solid red;
+}
+
 .form__error {
   position: absolute;
   top: 401px;
@@ -99,6 +103,10 @@
 .form__btn:hover {
   opacity: 0.8;
   transition: all ease 0.3s;
+}
+
+.form__btn:disabled {
+  opacity: 0.4;
 }
 
 .form__span {

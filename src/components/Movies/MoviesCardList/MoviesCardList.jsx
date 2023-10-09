@@ -1,62 +1,40 @@
 import './MoviesCardList.css'
-import React, { useState, useEffect } from "react";
-import Preloader from '../Preloader/Preloader'
 import MoviesCard from '../MoviesCard/MoviesCard'
+import { useLocation } from "react-router-dom"
 
-function MoviesCardList ({cards}) {
-    const resolution = window.innerWidth;
-
-    const [visibleCards, setVisibleCards] = useState(getVisibleItems());
-    function getVisibleItems () {
-        if (resolution >= 1280) {
-            return 12;
-        } else if ( resolution > 320 && resolution < 1280) {
-            return 8;
-        } else {
-            return 5;
-        }
+function MoviesCardList ({
+    moviesList,
+    savedMovies,
+    savedMoviesList,
+    onSave,
+    onDelete,
+  }) {
+    const location = useLocation();
+    const isLocationSavedMovies = () => {
+        if (location.pathname === '/saved-movies'){
+            return true
+        } else {return false}
     }
-
-    function toggleMoreBtn(cards, arr) {
-        getVisibleItems()
-        if (cards.length === arr.length) {
-            document.querySelector('.more__btn').classList.add('d-none')
-        }
-    }
-
-    function render (cards) {
-        const arr = cards.slice(0, visibleCards);
-        // console.log(visibleCards)
-        toggleMoreBtn(cards, arr)
-        return (
-            arr.map((card) => {
-                return (
-                    <MoviesCard
-                        card={card}
-                        key={card.movieId}
-                    />
-                )
-        }))
-    }
-    const handleShowMore = () => {
-        if (resolution >= 1280) {
-          setVisibleCards((prevVisibleCards) => prevVisibleCards + 3);
-        } else if (resolution > 320 && resolution < 1280) {
-          setVisibleCards((prevVisibleCards) => prevVisibleCards + 2);
-        } else {
-          setVisibleCards((prevVisibleCards) => prevVisibleCards + 1);
-        }
-    };
+    const cardsToRender = isLocationSavedMovies() ? savedMoviesList : moviesList;
 
     return (
         <section className='movies'>
-            {/* <Preloader /> */}
             <ul className='cards-list'>
-                {render(cards)}
+            {cardsToRender.map((movie) => {
+              return (
+                <MoviesCard
+                  key={movie.id ?? movie._id}
+                  isSavedPage={isLocationSavedMovies()}
+                  movie={movie}
+                  savedMovies={savedMovies}
+                  onSave={onSave}
+                  onDelete={onDelete}
+                />
+              )
+            })
+            }
             </ul>
-            <div className='more'>
-                    <button id='more' className='more__btn' type='button' onClick={handleShowMore}>Ещё</button>
-            </div>
+            
         </section>
     )
 }

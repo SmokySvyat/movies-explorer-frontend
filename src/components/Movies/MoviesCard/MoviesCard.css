@@ -23,6 +23,7 @@
     background-color: #000;
     border-radius: 6px;
     object-fit: contain;
+    overflow: hidden;
 }
 
 .card__save {
@@ -82,6 +83,7 @@
     font-size: 13px;
     font-weight: 500;
     line-height: normal;
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }

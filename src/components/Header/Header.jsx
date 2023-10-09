@@ -4,6 +4,7 @@ import { useLocation, Link } from "react-router-dom"
 import { useEffect, useState } from 'react'
 import Overlay from '../Overlay/Overlay'
 import logo from '../../images/logo.svg'
+import { MOBILE_RES } from '../../utils/constants'
 
 function Header (props) {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 840);
@@ -21,7 +22,7 @@ function Header (props) {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 840);
+      setIsMobile(window.innerWidth <= MOBILE_RES);
     };
 
     window.addEventListener('resize', handleResize);
@@ -44,8 +45,6 @@ function Header (props) {
         <button className='burger' type='button' onClick={handleOpenOverlay}></button>
       )
     } else if (isLogin) {
-      // console.log(`Если true ${isLogin}`)
-      // console.log(location)
       return (
         <ul className='nav-list'>
           <li className='nav-list__item'>
@@ -74,8 +73,6 @@ function Header (props) {
         </ul>
       )
     } else {
-      // console.log(`Если false ${isLogin}`)
-      // console.log(location)
       return (
         <ul className='nav-list'>
           <li className='nav-list__item'>
